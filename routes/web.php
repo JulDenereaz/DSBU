@@ -7,8 +7,8 @@ Route::get('/', function () {
 });
 
 
-use App\Filament\Pages\Auth\Register;
+// use App\Filament\Pages\Auth\Register;
 
-Route::get('/dashboard/register', Register::class)
-    ->name('filament.auth.register');
+// Route::get('/dashboard/register', Register::class)
+//     ->name('filament.auth.register');
 
