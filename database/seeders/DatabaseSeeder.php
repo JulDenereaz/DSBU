@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Equipment;
-use App\Models\Projects;
-use App\Models\Protocols;
-use App\Models\Groups;
+use App\Models\Project;
+use App\Models\Protocol;
+use App\Models\Group;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Groups::factory(5)->create();
+        Group::factory(5)->create();
         User::factory()->create([
             'name' => 'Julien Dénéréaz',
             'firstname' => 'Julien',
@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(49)->create();
         Equipment::factory(50)->create();
-        Projects::factory(10)->create();
-        Protocols::factory(20)->create();
+        Project::factory(10)->create();
+        Protocol::factory(20)->create();
 
     }
 }

@@ -4,13 +4,13 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Projects;
-use App\Models\Groups;
+use App\Models\Project;
+use App\Models\Group;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class ProjectsFactory extends Factory
+class ProjectFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class ProjectsFactory extends Factory
     {
         return [
             'project_name' => fake()->word(),
-            'group_id' => Groups::inRandomOrder()->first()->id ?? Groups::factory()->create()->id,
+            'group_id' => Group::inRandomOrder()->first()->id ?? Groups::factory()->create()->id,
         ];
     }
 }
