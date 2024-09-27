@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
     {
 
         Group::factory(5)->create();
-        User::factory()->create([
-            'name' => 'Julien Dénéréaz',
-            'firstname' => 'Julien',
-            'lastname' => 'Dénéréaz',
-            'email' => 'denereaz.julien@gmail.com',
-            'username' => 'jdenerea',
-            'password' => Hash::make('12345678'),
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Julien Dénéréaz',
+        //     'firstname' => 'Julien',
+        //     'lastname' => 'Dénéréaz',
+        //     'email' => 'denereaz.julien@gmail.com',
+        //     'username' => 'jdenerea',
+        //     'password' => Hash::make('12345678'),
+        // ]);
         User::factory(49)->create();
         Equipment::factory(50)->create();
         Project::factory(10)->create();

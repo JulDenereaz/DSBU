@@ -2,15 +2,20 @@
 
 namespace App\Filament\Pages\Auth;
 
+use Filament\Pages\Auth\Register as BaseRegister;
+
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Auth\Events\Registered;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\Component;
-use Filament\Pages\Auth\Register as BaseRegister;
 use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Illuminate\Support\Facades\Validator;
+use Filament\Forms\Components\View; 
+use Illuminate\Validation\Rule;
+use App\Models\Group;  // Import your Group model
 
 class Register extends BaseRegister
 {
@@ -19,7 +24,7 @@ class Register extends BaseRegister
     public function register(): ?RegistrationResponse
     {
         try {
-            $this->rateLimit(2);
+            $this->rateLimit(10);
         } catch (TooManyRequestsException $exception) {
             Notification::make()
                 ->title(__('filament-panels::pages/auth/register.notifications.throttled.title', [
@@ -48,10 +53,12 @@ class Register extends BaseRegister
         // );
         event(new Registered($user));
 
-        Filament::auth()->login($user);
+        // Filament::auth()->login($user); //activate to directly login
 
         session()->regenerate();
         
+        // return redirect()->route('filament.auth.login')
+        //              ->with('status', 'Registration successful. Please log in.');
         return app(RegistrationResponse::class);
     }
 
@@ -93,18 +100,22 @@ class Register extends BaseRegister
     {
         return TextInput::make('username')
             ->label('Username')
-            ->required()  
-            ->maxLength(255);
+            ->required()
+            ->rules([
+                'required',
+                'string',
+                'max:8',
+                Rule::unique('users', 'username'), 
+            ]);
     }
 
     protected function getGroupNameFormComponent(): Component
-    {
-        return Select::make('group_name')
-            ->options([
-                'veening' => 'Veening',
-                'lebrand' => 'Lebrand',
-            ])
-            ->default('veening')
-            ->required();
-    }
+{
+    $groups = Group::pluck('group_name', 'id')->toArray(); 
+
+    return Select::make('group_id')
+        ->options($groups)
+        ->label('Select Group')
+        ->required();
+}
 }
