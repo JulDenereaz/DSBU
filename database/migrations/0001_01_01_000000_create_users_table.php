@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('username', 8)->unique(); // New username field (8 characters)
-            $table->string('group_name')->nullable(); // New group name field
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

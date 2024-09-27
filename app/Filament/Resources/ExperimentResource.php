@@ -2,9 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProtocolsResource\Pages;
-use App\Filament\Resources\ProtocolsResource\RelationManagers;
-use App\Models\Protocols;
+use App\Filament\Resources\ExperimentResource\Pages;
+use App\Filament\Resources\ExperimentResource\RelationManagers;
+use App\Models\Experiment;
+use App\Models\User;
+use App\Models\Protocol;
+use App\Models\Equipment;
+use App\Models\Group;
+use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,11 +20,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 
-class ProtocolsResource extends Resource
+class ExperimentResource extends Resource
 {
-    protected static ?string $model = Protocols::class;
+    protected static ?string $model = Experiment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $navigationIcon = 'heroicon-s-beaker';
 
     public static function form(Form $form): Form
     {
@@ -33,14 +38,16 @@ class ProtocolsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('pr_name')
-                ->label('Protocol Name'),
-                TextColumn::make('description')
-                ->label('Description'),
-                TextColumn::make('user_id')
-                ->label('Creator'),
-                TextColumn::make('category')
-                ->label('Category')
+                TextColumn::make('status')
+                ->label('Status'),
+                TextColumn::make('collection-date')
+                ->label('Collection Date'),
+                TextColumn::make('project.project_name')
+                ->label('Project'),
+                TextColumn::make('equipment.eq_name')
+                ->label('Equipment'),
+                TextColumn::make('protocol.pr_name')
+                ->label('Protocol'),
             ])
             ->filters([
                 //
@@ -65,9 +72,9 @@ class ProtocolsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProtocols::route('/'),
-            'create' => Pages\CreateProtocols::route('/create'),
-            'edit' => Pages\EditProtocols::route('/{record}/edit'),
+            'index' => Pages\ListExperiments::route('/'),
+            'create' => Pages\CreateExperiment::route('/create'),
+            'edit' => Pages\EditExperiment::route('/{record}/edit'),
         ];
     }
 }

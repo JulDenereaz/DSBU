@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('pr_id');
             $table->string('pr_name');
             $table->string('description');
-            $table->string('user_id');
-            $table->string('group');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->string('category')->nullable();
             $table->string('doi')->nullable();
             $table->string('abb_list')->nullable();

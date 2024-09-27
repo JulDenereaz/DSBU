@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Models\Group;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -61,11 +62,12 @@ class UserResource extends Resource
                 TextColumn::make('lastname')
                 ->label('Last Name'),
                 TextColumn::make('username')
-                ->label('Username'),
+                ->label('Username')
+                ->sortable(),
                 TextColumn::make('email')
                 ->label('Email'),
-                TextColumn::make('group_name')
-                ->label('Research Group'),
+                TextColumn::make('group.group_name')
+                ->label('Research Group')
             ])
             ->filters([
                 //

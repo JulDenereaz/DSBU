@@ -9,4 +9,6 @@ class Equipment extends Model
 {
     use HasFactory;
     protected $table = 'equipment';  // Ensure this table name matches your database
+
+    
 }

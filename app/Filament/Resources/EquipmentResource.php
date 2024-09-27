@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EquipmentResource\Pages;
 use App\Filament\Resources\EquipmentResource\RelationManagers;
 use App\Models\Equipment;
+use App\Models\Group;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,7 +20,7 @@ class EquipmentResource extends Resource
 {
     protected static ?string $model = Equipment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-microscope';
 
     public static function form(Form $form): Form
     {
@@ -71,7 +72,7 @@ class EquipmentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEquipment::route('/'),
+            'index' => Pages\ListEquipments::route('/'),
             'create' => Pages\CreateEquipment::route('/create'),
             'edit' => Pages\EditEquipment::route('/{record}/edit'),
         ];

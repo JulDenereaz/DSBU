@@ -6,7 +6,7 @@ use App\Filament\Resources\EquipmentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListEquipment extends ListRecords
+class ListEquipments extends ListRecords
 {
     protected static string $resource = EquipmentResource::class;
 

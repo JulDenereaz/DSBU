@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProjectsResource\Pages;
-use App\Filament\Resources\ProjectsResource\RelationManagers;
-use App\Models\Projects;
+use App\Filament\Resources\ProjectResource\Pages;
+use App\Filament\Resources\ProjectResource\RelationManagers;
+use App\Models\Project;
+use App\Models\Group;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,9 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 
-class ProjectsResource extends Resource
+class ProjectResource extends Resource
 {
-    protected static ?string $model = Projects::class;
+    protected static ?string $model = Project::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
@@ -33,7 +34,10 @@ class ProjectsResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('project_name')
+                ->label('Project Name'),
+                TextColumn::make('group.group_name')
+                ->label('Research Group'),
             ])
             ->filters([
                 //
@@ -59,8 +63,8 @@ class ProjectsResource extends Resource
     {
         return [
             'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProjects::route('/create'),
-            'edit' => Pages\EditProjects::route('/{record}/edit'),
+            'create' => Pages\CreateProject::route('/create'),
+            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

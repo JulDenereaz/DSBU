@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('status');
             $table->string('collection_date');
-            $table->string('project_id');
-            $table->string('user_id');
-            $table->string('equipment_id');
-            $table->string('protocol_id');
+            $table->foreignId('project_id')->constrained('groups')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
+            $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
+            $table->foreignId('protocol_id')->constrained('protocols')->onDelete('cascade');
+
             $table->string('data_type');
             $table->string('samples');
             $table->string('description');

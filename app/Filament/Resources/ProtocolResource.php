@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ExperimentsResource\Pages;
-use App\Filament\Resources\ExperimentsResource\RelationManagers;
-use App\Models\Experiments;
+use App\Filament\Resources\ProtocolResource\Pages;
+use App\Filament\Resources\ProtocolResource\RelationManagers;
+use App\Models\Protocol;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,11 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 
-class ExperimentsResource extends Resource
+class ProtocolResource extends Resource
 {
-    protected static ?string $model = Experiments::class;
+    protected static ?string $model = Protocol::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-beaker';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
 
     public static function form(Form $form): Form
     {
@@ -33,7 +34,16 @@ class ExperimentsResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('pr_name')
+                ->label('Protocol Name'),
+                TextColumn::make('description')
+                ->label('Description'),
+                TextColumn::make('user.username')
+                ->label('Creator'),
+                TextColumn::make('group.group_name')
+                ->label('Research Group'),
+                TextColumn::make('category')
+                ->label('Category'),
             ])
             ->filters([
                 //
@@ -58,9 +68,9 @@ class ExperimentsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExperiments::route('/'),
-            'create' => Pages\CreateExperiments::route('/create'),
-            'edit' => Pages\EditExperiments::route('/{record}/edit'),
+            'index' => Pages\ListProtocols::route('/'),
+            'create' => Pages\CreateProtocol::route('/create'),
+            'edit' => Pages\EditProtocol::route('/{record}/edit'),
         ];
     }
 }

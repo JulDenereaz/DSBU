@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ExperimentsResource\Pages;
+namespace App\Filament\Resources\ExperimentResource\Pages;
 
-use App\Filament\Resources\ExperimentsResource;
+use App\Filament\Resources\ExperimentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListExperiments extends ListRecords
 {
-    protected static string $resource = ExperimentsResource::class;
+    protected static string $resource = ExperimentResource::class;
 
     protected function getHeaderActions(): array
     {
