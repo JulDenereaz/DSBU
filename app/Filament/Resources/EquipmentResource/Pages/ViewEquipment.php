@@ -10,6 +10,7 @@ use Filament\Infolists\Components\Section;
 use Filament\Infolists\Infolist;
 use Filament\Support\Enums\FontWeight;
 use Filament\Pages\Actions\EditAction;
+
 class ViewEquipment extends ViewRecord
 {
     protected static string $resource = EquipmentResource::class;

@@ -38,16 +38,22 @@ class EquipmentResource extends Resource
                 TextColumn::make('eq_id')
                 ->label('Unique ID'),
                 TextColumn::make('eq_name')
+                ->searchable()
                 ->label('Equipment Name'),
                 TextColumn::make('platform')
+                ->searchable()
                 ->label('Platform'),
                 TextColumn::make('platform_name')
+                ->searchable()
                 ->label('Platform Name'),
                 TextColumn::make('location')
+                ->searchable()
                 ->label('Location'),
                 TextColumn::make('dataCategory.data_category')
+                ->searchable()
                 ->label('Data Category'),
                 TextColumn::make('software')
+                ->searchable()
                 ->label('Software'),
                 TextColumn::make('description')
                 ->label('Description'),
