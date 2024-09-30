@@ -35,6 +35,8 @@ class EquipmentResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('eq_id')
+                ->label('Unique ID'),
                 TextColumn::make('eq_name')
                 ->label('Equipment Name'),
                 TextColumn::make('platform')
@@ -54,7 +56,9 @@ class EquipmentResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -75,6 +79,7 @@ class EquipmentResource extends Resource
         return [
             'index' => Pages\ListEquipments::route('/'),
             'create' => Pages\CreateEquipment::route('/create'),
+            'view' => Pages\ViewEquipment::route('/{record}'),
             'edit' => Pages\EditEquipment::route('/{record}/edit'),
         ];
     }

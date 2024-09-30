@@ -36,6 +36,14 @@ class ProjectResource extends Resource
             ->columns([
                 TextColumn::make('project_name')
                 ->label('Project Name'),
+                TextColumn::make('funding')
+                ->label('Funding Agencies'),
+                TextColumn::make('start_date')
+                    ->label('Start Date (YYYY-mm)')
+                    ->date('Y-m'), 
+                TextColumn::make('end_date')
+                    ->label('End Date (YYYY-mm)')
+                    ->date('Y-m'), 
                 TextColumn::make('group.group_name')
                 ->label('Research Group'),
             ])

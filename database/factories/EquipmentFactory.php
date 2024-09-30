@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Equipment;
 use App\Models\Data_category;
 use App\Models\User;
-
+use Illuminate\Support\Facades\DB;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Equipment>
  */
@@ -17,6 +17,7 @@ class EquipmentFactory extends Factory
     
     public function definition(): array
     {
+
         return [
             'eq_id' => fake()->unique()->randomNumber(),
             'eq_name' => fake()->word(),
@@ -31,5 +32,13 @@ class EquipmentFactory extends Factory
             'created_at' =>now(),
 
         ];
+    }
+    public function configure()
+    {
+        return $this->afterCreating(function (Equipment $equipment) {
+            $plat = $equipment->platform;
+            $equipment->eq_id = $plat . str_pad($equipment->id, 3, '0', STR_PAD_LEFT);
+            $equipment->save(); // Persist the updated eq_id
+        });
     }
 }

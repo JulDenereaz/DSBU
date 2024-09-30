@@ -21,6 +21,9 @@ class ProjectFactory extends Factory
     {
         return [
             'project_name' => fake()->word(),
+            'start_date' => fake()->date('Y-m-d'),
+            'end_date' => fake()->date('Y-m-d'),
+            'funding' => fake()->word(),
             'group_id' => Group::inRandomOrder()->first()->id ?? Groups::factory()->create()->id,
         ];
     }

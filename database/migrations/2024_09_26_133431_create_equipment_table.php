@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
-            $table->string('eq_id')->unique();
+            $table->string('eq_id');
             $table->string('eq_name');
             $table->foreignId('creator_id')->constrained('users')->onDelete('cascade');
             $table->string('platform');
