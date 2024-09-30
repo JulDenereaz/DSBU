@@ -3,12 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\HasName;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Panel;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasFactory, Notifiable;
 
@@ -18,7 +22,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'firstname',
         'lastname',
         'username',
@@ -50,10 +53,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        
+        return true;
+    }
+    public function getFilamentName(): string
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
 
     public function group()
     {
         return $this->belongsTo(Group::class);
     }
+
 
 }

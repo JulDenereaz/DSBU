@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
 
         Group::factory(5)->create();
         // User::factory()->create([
-        //     'name' => 'Julien Dénéréaz',
         //     'firstname' => 'Julien',
         //     'lastname' => 'Dénéréaz',
         //     'email' => 'denereaz.julien@gmail.com',
