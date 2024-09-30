@@ -6,6 +6,7 @@ use App\Filament\Resources\EquipmentResource\Pages;
 use App\Filament\Resources\EquipmentResource\RelationManagers;
 use App\Models\Equipment;
 use App\Models\Group;
+use App\Models\Data_category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -42,7 +43,7 @@ class EquipmentResource extends Resource
                 ->label('Platform Name'),
                 TextColumn::make('location')
                 ->label('Location'),
-                TextColumn::make('data_category_id')
+                TextColumn::make('dataCategory.data_category')
                 ->label('Data Category'),
                 TextColumn::make('software')
                 ->label('Software'),

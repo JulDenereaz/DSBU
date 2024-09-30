@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('data_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->string('subcategory');
-            $table->string('description');
+            $table->string('data_category');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
-            $table->string('eq_id');
+            $table->string('eq_id')->unique();
             $table->string('eq_name');
+            $table->foreignId('creator_id')->constrained('users')->onDelete('cascade');
             $table->string('platform');
             $table->string('platform_name');
             $table->string('location');
             $table->string('software')->nullable();
-            $table->string('data_category_id')->constrained('data_categories')->onDelete('cascade');
+            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->timestamps();
         });

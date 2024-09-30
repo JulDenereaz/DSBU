@@ -22,6 +22,7 @@ class GroupFactory extends Factory
             'fullname' => fake()->name(),
             'address' => fake()->address(),
             'department' => fake()->stateAbbr(),
+            'department_name' => fake()->state(),
             'faculty' => fake()->word(),
         ];
     }

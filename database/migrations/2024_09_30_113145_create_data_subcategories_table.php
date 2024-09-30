@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('data_subcategories', function (Blueprint $table) {
             $table->id();
-            $table->string('group_name');
-            $table->string('fullname');
-            $table->string('address');
-            $table->string('faculty');
-            $table->string('department');
-            $table->string('department_name');
+            $table->string('data_subcategory');
+            $table->string('description')->nullable();
+            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('data_subcategories');
     }
 };
