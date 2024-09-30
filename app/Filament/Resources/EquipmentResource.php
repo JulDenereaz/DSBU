@@ -42,7 +42,7 @@ class EquipmentResource extends Resource
                 ->label('Platform Name'),
                 TextColumn::make('location')
                 ->label('Location'),
-                TextColumn::make('data_category')
+                TextColumn::make('data_category_id')
                 ->label('Data Category'),
                 TextColumn::make('software')
                 ->label('Software'),

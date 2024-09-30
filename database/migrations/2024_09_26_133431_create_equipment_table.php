@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('platform_name');
             $table->string('location');
             $table->string('software')->nullable();
-            $table->string('data_category');
+            $table->string('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->timestamps();
         });
