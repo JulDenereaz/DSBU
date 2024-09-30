@@ -19,8 +19,8 @@ class GroupFactory extends Factory
     {
         return [
             'group_name' => fake()->word(),
-            'fullname' => fake()->word(),
-            'address' => fake()->word(),
+            'fullname' => fake()->name(),
+            'address' => fake()->address(),
             'department' => fake()->word(),
             'faculty' => fake()->word(),
         ];
