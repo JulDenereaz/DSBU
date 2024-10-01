@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
             $table->foreignId('protocol_id')->constrained('protocols')->onDelete('cascade');
-            $table->foreignId('data_type_id')->constrained('data_subcategories')->onDelete('cascade');
+            $table->foreignId('data_subcategory_id')->constrained('data_subcategories')->onDelete('cascade');
             $table->string('samples');
             $table->string('description');
             $table->string('file_structure');
