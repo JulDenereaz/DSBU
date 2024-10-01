@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('department');
             $table->string('department_name');
             $table->string('orcid');
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }

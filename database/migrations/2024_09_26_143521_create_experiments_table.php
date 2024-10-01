@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('experiments', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->string('collection_date');
-            $table->foreignId('project_id')->constrained('groups')->onDelete('cascade');
+            $table->string('name');
+            $table->enum('status', ['INCOMPLETE', 'READY', 'CREATED', 'ARCHIVED'])->default('INCOMPLETE');
+            $table->date('collection_date')->format('Ymd');
+            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
@@ -25,12 +26,12 @@ return new class extends Migration
             $table->string('description');
             $table->string('file_structure');
             $table->string('supp_table');
-            $table->string('is_personal');
-            $table->string('is_sensitive');
-            $table->string('is_encrypted');
-            $table->string('is_archived');
-            $table->string('is_deposited');
-            $table->string('storage_period');
+            $table->boolean('is_personal');
+            $table->boolean('is_sensitive');
+            $table->boolean('is_encrypted');
+            $table->boolean('is_archived');
+            $table->boolean('is_deposited');
+            $table->boolean('storage_period');
             $table->string('License');
             $table->timestamps();
         });

@@ -26,6 +26,7 @@ class Settings extends Page
     // Initialize group settings
     public function mount()
     {
+
         // Fetch the group associated with the logged-in user
         $this->group = Auth::user()->group;
 
@@ -65,15 +66,10 @@ class Settings extends Page
     public function submit()
     {
         // Validate the input fields
-        $this->validate();
+        $validatedData = $this->form->getState();
 
         // Update the group's settings in the database
-        $this->group->update([
-            'group_name' => $this->form->getState()['group_name'],
-            'address' => $this->form->getState()['address'],
-            'faculty' => $this->form->getState()['faculty'],
-            'department' => $this->form->getState()['department'],
-        ]);
+        $this->group->update($validatedData);
 
         // Notify the user of a successful update
         $this->notify('success', 'Settings updated successfully!');
@@ -87,7 +83,11 @@ class Settings extends Page
                 Section::make()
                 ->schema($this->getFormSchema())
             ])
-            ->model($this->group)  // Bind the form to the group model
-            ->statePath('data');   // Use a state path to bind form data
+            ->model($this->group);  // Bind the form to the group model
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->hasRole(['admin', 'pi']);
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use App\Models\Group;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Filters\SelectFilter;
 
 class UserResource extends Resource
 {   
@@ -33,6 +36,8 @@ class UserResource extends Resource
     {
         return 'Lab Members';
     }
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -66,11 +71,11 @@ class UserResource extends Resource
                 ->sortable(),
                 TextColumn::make('email')
                 ->label('Email'),
-                TextColumn::make('getGroup.group_name')
+                TextColumn::make('group.group_name')
                 ->label('Research Group')
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -79,8 +84,15 @@ class UserResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
-    }
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+            
+                if (!$user->hasRole('admin')) {
+                    $query->where('group_id', $user->group_id);
+                }
+            });
+}
 
     public static function getRelations(): array
     {

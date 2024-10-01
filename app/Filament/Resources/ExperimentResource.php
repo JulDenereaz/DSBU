@@ -44,7 +44,8 @@ class ExperimentResource extends Resource
                 TextColumn::make('status')
                 ->label('Status'),
                 TextColumn::make('collection-date')
-                ->label('Collection Date'),
+                ->label('Collection Date')
+                ->date('Y-m-d'),
                 TextColumn::make('project.project_name')
                 ->label('Project'),
                 TextColumn::make('equipment.eq_name')

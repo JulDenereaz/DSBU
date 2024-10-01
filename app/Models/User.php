@@ -10,11 +10,13 @@ use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Panel;
-
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Group;
+use App\Models\Project;
 
 class User extends Authenticatable implements FilamentUser, HasName
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
