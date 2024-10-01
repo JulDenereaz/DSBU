@@ -25,7 +25,9 @@ class ExperimentResource extends Resource
     protected static ?string $model = Experiment::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-beaker';
-
+    protected static ?string $navigationGroup = 'Experiment Manager';
+    protected static ?int $navigationSort = 1;
+    protected static ?string $recordTitleAttribute = 'number';
     public static function form(Form $form): Form
     {
         return $form
@@ -48,6 +50,10 @@ class ExperimentResource extends Resource
                 ->label('Equipment'),
                 TextColumn::make('protocol.pr_name')
                 ->label('Protocol'),
+                TextColumn::make('dataSubcategory.dataCategory.data_category')
+                ->label('Data Type'),
+                TextColumn::make('dataSubcategory.data_subcategory')
+                ->label('Data Sub-Type'),
             ])
             ->filters([
                 //

@@ -22,6 +22,8 @@ class EquipmentResource extends Resource
     protected static ?string $model = Equipment::class;
 
     protected static ?string $navigationIcon = 'tabler-microscope';
+    protected static ?string $navigationGroup = 'Experiment Manager';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -70,7 +72,15 @@ class EquipmentResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->groups([
+                Tables\Grouping\Group::make('location')
+                    ->label('Location')
+                    ->collapsible(),
+                Tables\Grouping\Group::make('dataCategory.data_category')
+                    ->label('Data Category')
+                    ->collapsible(),
+            ]);;
     }
 
     public static function getRelations(): array

@@ -29,7 +29,10 @@ class Experiment extends Model
     {
         return $this->belongsTo(Project::class);
     }
-
+    public function dataSubcategory()
+    {
+        return $this->belongsTo(Data_subcategory::class);
+    }
 
 
 }

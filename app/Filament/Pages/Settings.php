@@ -18,6 +18,8 @@ class Settings extends Page
     protected static ?string $title = 'Settings';
     protected static string $view = 'filament.pages.settings';
     protected static ?string $navigationIcon = 'bi-gear-fill';
+    protected static ?string $navigationGroup = 'Experiment Manager';
+    protected static ?int $navigationSort = 5;
 
     public $group;
 

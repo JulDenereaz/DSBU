@@ -21,6 +21,8 @@ class ProtocolResource extends Resource
     protected static ?string $model = Protocol::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $navigationGroup = 'Experiment Manager';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

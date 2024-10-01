@@ -24,6 +24,7 @@ class GroupFactory extends Factory
             'department' => fake()->stateAbbr(),
             'department_name' => fake()->state(),
             'faculty' => fake()->word(),
+            'orcid' => fake()->uuid(),
         ];
     }
 }

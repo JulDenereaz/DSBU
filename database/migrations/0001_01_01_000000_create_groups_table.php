@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('faculty');
             $table->string('department');
             $table->string('department_name');
+            $table->string('orcid');
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Filament\Resources\EquipmentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Infolist;
 use Filament\Support\Enums\FontWeight;
@@ -31,7 +32,7 @@ class ViewEquipment extends ViewRecord
                     ->label('Platform Name'),
                     TextEntry::make('location')
                     ->label('Location'),
-                    TextEntry::make('dataCategory.data_category')
+                    TextEntry::make('getDataCategory.data_category')
                     ->label('Data Category'),
                     TextEntry::make('software')
                     ->label('Software'),

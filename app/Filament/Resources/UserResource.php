@@ -66,7 +66,7 @@ class UserResource extends Resource
                 ->sortable(),
                 TextColumn::make('email')
                 ->label('Email'),
-                TextColumn::make('group.group_name')
+                TextColumn::make('getGroup.group_name')
                 ->label('Research Group')
             ])
             ->filters([
