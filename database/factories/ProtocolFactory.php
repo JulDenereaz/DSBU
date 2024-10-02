@@ -21,7 +21,7 @@ class ProtocolFactory extends Factory
         $user = User::inRandomOrder()->first() ?? User::factory()->create();
         return [
             'pr_id' => fake()->word(),
-            'pr_name' => fake()->word(),
+            'protocol_name' => fake()->word(),
             'description' => fake()->word(),
             'user_id' => $user->id,
             'group_id' => $user->group_id,

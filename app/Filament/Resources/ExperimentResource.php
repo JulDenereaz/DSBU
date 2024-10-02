@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\BadgeColumn;
+use Illuminate\Support\Facades\Auth;
 
 
 class ExperimentResource extends Resource
@@ -41,16 +43,39 @@ class ExperimentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('status')
-                ->label('Status'),
-                TextColumn::make('collection-date')
-                ->label('Collection Date')
+                BadgeColumn::make('status')
+                ->color(static function ($state): string {
+                    return match ($state) {
+                        'Incomplete' => 'warning',
+                        'Archived' => 'tertiary',
+                        'Ready' => 'success',
+                        'Created' => 'secondary',
+                        'Deleted' => 'danger',
+                        default => 'gray',
+                    };
+                })
+                ->icon(static function ($state): ?string {
+                    return match ($state) {
+                        'Incomplete' => 'heroicon-s-pencil',
+                        'Archived' => 'bi-archive-fill',
+                        'Ready' => 'heroicon-s-check-circle',
+                        'Created' => 'heroicon-s-document',
+                        'Deleted' => 'heroicon-s-trash',
+                        default => null,
+                    };
+                })
+                ->sortable()
+                ->iconPosition('before'),
+                TextColumn::make('name')
+                ->label('Name'),
+                TextColumn::make('collection_date')
+                ->label('Data Collection Date')
                 ->date('Y-m-d'),
                 TextColumn::make('project.project_name')
                 ->label('Project'),
                 TextColumn::make('equipment.eq_name')
                 ->label('Equipment'),
-                TextColumn::make('protocol.pr_name')
+                TextColumn::make('protocol.protocol_name')
                 ->label('Protocol'),
                 TextColumn::make('dataSubcategory.dataCategory.data_category')
                 ->label('Data Type'),
@@ -67,7 +92,14 @@ class ExperimentResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+            
+                if (!$user->hasRole('admin')) {
+                    $query->where('group_id', $user->group_id);
+                }
+            });
     }
 
     public static function getRelations(): array

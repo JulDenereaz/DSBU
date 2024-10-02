@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('experiments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ['INCOMPLETE', 'READY', 'CREATED', 'ARCHIVED'])->default('INCOMPLETE');
+            $table->enum('status', ['INCOMPLETE', 'READY', 'CREATED', 'ARCHIVED', 'DELETED'])->default('INCOMPLETE');
             $table->date('collection_date')->format('Ymd');
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

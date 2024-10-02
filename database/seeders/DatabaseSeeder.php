@@ -95,8 +95,8 @@ class DatabaseSeeder extends Seeder
         }
         Data_subcategory::factory(15)->create();
         Equipment::factory(50)->create();
-        Project::factory(10)->create();
-        Protocol::factory(20)->create();
+        Project::factory(30)->create();
+        Protocol::factory(40)->create();
         Experiment::factory(20)->create();
 
     }

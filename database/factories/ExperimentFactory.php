@@ -30,15 +30,16 @@ class ExperimentFactory extends Factory
                                        ->inRandomOrder()
                                        ->first()
                                        ->id;
+        $user = User::inRandomOrder()->first();       
         return [
-
             'name' => fake()->word(),
-            'group_id' => Group::inRandomOrder()->first()->id,
-            'user_id' => User::inRandomOrder()->first()->id,
+            'group_id' => $user->group_id,
+            'user_id' => $user->id,
             'protocol_id' => Protocol::inRandomOrder()->first()->id,
             'equipment_id' => $equipment->id,
             'project_id' => Project::inRandomOrder()->first()->id,
             'data_subcategory_id' => $data_subcategory_id,
+            'status' => fake()->randomElement(['INCOMPLETE', 'READY', 'CREATED', 'ARCHIVED', 'DELETED']),
             'collection_date' => fake()->date(),
             'samples' => fake()->sentence(),
             'description' => fake()->sentence(),

@@ -36,7 +36,7 @@ class ProtocolResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('pr_name')
+                TextColumn::make('protocol_name')
                 ->label('Protocol Name'),
                 TextColumn::make('description')
                 ->label('Description'),

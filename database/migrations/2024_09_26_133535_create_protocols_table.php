@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('protocols', function (Blueprint $table) {
             $table->id();
             $table->string('pr_id');
-            $table->string('pr_name');
+            $table->string('protocol_name');
             $table->string('description');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
