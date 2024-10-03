@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('eq_id');
-            $table->string('eq_shortname');
-            $table->string('eq_name');
+            $table->string('shortname');
+            $table->string('name');
             $table->foreignId('creator_id')->constrained('users')->onDelete('cascade');
             $table->string('platform');
             $table->string('platform_name');

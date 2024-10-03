@@ -20,7 +20,8 @@ class EquipmentFactory extends Factory
 
         return [
             'eq_id' => fake()->unique()->randomNumber(),
-            'eq_name' => fake()->word(),
+            'name' => fake()->word(),
+            'shortname' => fake()->word(),
             'creator_id' => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
             'platform' => fake()-> stateAbbr(),
             'platform_name' => fake()-> state(),

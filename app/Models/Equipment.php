@@ -18,7 +18,8 @@ class Equipment extends Model
      */
     protected $fillable = [
         'eq_id',
-        'eq_name',
+        'name',
+        'shortname',
         'creator_id',
         'location',
         'platform',

@@ -24,8 +24,10 @@ class ViewEquipment extends ViewRecord
                 ->schema([
                     TextEntry::make('eq_id')
                     ->label('Unique ID'),
-                    TextEntry::make('eq_name')
-                    ->label('Equipment Name'),
+                    TextEntry::make('shortname')
+                    ->label('Shortname'),
+                    TextEntry::make('name')
+                    ->label('Name'),
                     TextEntry::make('platform')
                     ->label('Platform'),
                     TextEntry::make('platform_name')

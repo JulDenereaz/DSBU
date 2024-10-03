@@ -22,8 +22,13 @@ class EditEquipment extends EditRecord
     {
         return $form
             ->schema([
-                TextInput::make('eq_name')
-                ->label('Equipment Name')
+                TextInput::make('shortname')
+                ->label('Shortname')
+                ->prefixIcon('tabler-microscope')
+                ->placeholder('Leica SP5 confocal')
+                ->required(),
+                TextInput::make('name')
+                ->label('Name')
                 ->prefixIcon('tabler-microscope')
                 ->placeholder('Leica SP5 confocal')
                 ->required(),
