@@ -21,6 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Support\Facades\Auth;
+use App\Filament\Actions\GenerateReadme;
 
 
 class ExperimentResource extends Resource
@@ -87,7 +88,8 @@ class ExperimentResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
+                GenerateReadme::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
