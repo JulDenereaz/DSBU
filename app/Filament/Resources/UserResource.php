@@ -21,7 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Spatie\Permission\Traits\HasRoles;
 
 class UserResource extends Resource
-{   
+{
 
     protected static ?string $model = User::class;
 
@@ -64,20 +64,59 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('firstname')
-                ->label('First Name'),
+                    ->label('First Name'),
                 TextColumn::make('lastname')
-                ->label('Last Name'),
+                    ->label('Last Name'),
                 TextColumn::make('username')
-                ->label('Username')
-                ->sortable(),
+                    ->label('Username')
+                    ->sortable(),
                 TextColumn::make('email')
-                ->label('Email'),
+                    ->label('Email'),
                 TextColumn::make('group.group_name')
-                ->label('Research Group')
-            ])
-            ->filters([
+                    ->label('Research Group'),
+                TextColumn::make('roles.name')
+                    ->label('Role')  // This is the static label for the column header
+                    ->sortable()
+                    ->formatStateUsing(static function ($state): ?string {
+                        // Ensure the state is always treated as an array
+                        if (is_string($state)) {
+                            $state = [$state];
+                        }
 
+                        if ($state && is_array($state)) {
+                            return implode(', ', array_map(static function ($role) {
+                                return match ($role) {
+                                    'admin' => 'Admin',
+                                    'pi' => 'PI',
+                                    'manager' => 'Manager',
+                                    default => 'User',
+                                };
+                            }, $state));
+                        }
+
+                        return 'No Role';
+                    })
+                    ->badge()
+                    ->color(static function ($state) {
+                        return match ($state) {
+                            'admin' => 'danger',
+                            'pi' => 'primary',
+                            'manager' => 'success',
+                            'user' => 'secondary',
+                            default => 'gray',
+                        };
+                    })
+                    ->icon(static function ($state) {
+                        return match ($state) {
+                            'admin' => 'danger',
+                            'pi' => 'primary',
+                            'manager' => 'success',
+                            'user' => 'secondary',
+                            default => 'gray',
+                        };
+                    })
             ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -89,12 +128,12 @@ class UserResource extends Resource
             ->modifyQueryUsing(function (Builder $query) {
                 /** @var \App\Models\User */
                 $user = Auth::user();
-            
+
                 if (!$user->hasRole('admin')) {
                     $query->where('group_id', $user->group_id);
                 }
             });
-}
+    }
 
     public static function getRelations(): array
     {

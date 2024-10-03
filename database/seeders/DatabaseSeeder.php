@@ -30,20 +30,20 @@ class DatabaseSeeder extends Seeder
         $rolePi = Role::create(['name' => 'pi']);
         $roleManager = Role::create(['name' => 'manager']);
         $roleUser = Role::create(['name' => 'user']);
-        
+
         Artisan::call('shield:generate', ['--all' => true]);
 
         $roleAdmin->givePermissionTo(Permission::all());
         $roleUser->givePermissionTo([
             'view_experiment',
             'create_experiment',
-            'view_equipment', 
-            'view_project', 
+            'view_equipment',
+            'view_project',
             'view_protocol',
             'view_user',
             'view_any_experiment',
-            'view_any_equipment', 
-            'view_any_project', 
+            'view_any_equipment',
+            'view_any_project',
             'view_any_protocol',
             'view_any_user',
         ]);
@@ -53,8 +53,8 @@ class DatabaseSeeder extends Seeder
             'create_project',
             'create_equipment',
             'view_group',
-            'update_experiment', 
-            'update_project', 
+            'update_experiment',
+            'update_project',
             'update_protocol',
             'update_user',
         ]);
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
         $rolePi->givePermissionTo([
             'update_group',
             'delete_experiment',
-            'delete_project', 
+            'delete_project',
             'delete_protocol',
             'delete_user',
         ]);
@@ -85,8 +85,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ])->assignRole('pi');
 
-        User::factory(48)->create();
-        
+        $users = User::factory(48)->create();
+        $users->each(function ($user) {
+            $user->assignRole('user');
+        });
+        $mod = User::factory(5)->create();
+        $mod->each(function ($user) {
+            $user->assignRole('manager');
+        });
         $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
         $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
         foreach ($categories as $index => $category) {
@@ -100,6 +106,5 @@ class DatabaseSeeder extends Seeder
         Project::factory(30)->create();
         Protocol::factory(40)->create();
         Experiment::factory(20)->create();
-
     }
 }
