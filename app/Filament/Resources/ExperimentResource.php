@@ -43,44 +43,45 @@ class ExperimentResource extends Resource
     {
         return $table
             ->columns([
-                BadgeColumn::make('status')
-                ->color(static function ($state): string {
-                    return match ($state) {
-                        'Incomplete' => 'warning',
-                        'Archived' => 'tertiary',
-                        'Ready' => 'success',
-                        'Created' => 'secondary',
-                        'Deleted' => 'danger',
-                        default => 'gray',
-                    };
-                })
-                ->icon(static function ($state): ?string {
-                    return match ($state) {
-                        'Incomplete' => 'heroicon-s-pencil',
-                        'Archived' => 'bi-archive-fill',
-                        'Ready' => 'heroicon-s-check-circle',
-                        'Created' => 'heroicon-s-document',
-                        'Deleted' => 'heroicon-s-trash',
-                        default => null,
-                    };
-                })
-                ->sortable()
-                ->iconPosition('before'),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(static function ($state): string {
+                        return match ($state) {
+                            'Incomplete' => 'warning',
+                            'Archived' => 'tertiary',
+                            'Ready' => 'success',
+                            'Created' => 'secondary',
+                            'Deleted' => 'danger',
+                            default => 'gray',
+                        };
+                    })
+                    ->icon(static function ($state): ?string {
+                        return match ($state) {
+                            'Incomplete' => 'heroicon-s-pencil',
+                            'Archived' => 'bi-archive-fill',
+                            'Ready' => 'heroicon-s-check-circle',
+                            'Created' => 'heroicon-s-document',
+                            'Deleted' => 'heroicon-s-trash',
+                            default => null,
+                        };
+                    })
+                    ->sortable()
+                    ->iconPosition('before'),
                 TextColumn::make('name')
-                ->label('Name'),
+                    ->label('Name'),
                 TextColumn::make('collection_date')
-                ->label('Data Collection Date')
-                ->date('Y-m-d'),
+                    ->label('Data Collection Date')
+                    ->date('Y-m-d'),
                 TextColumn::make('project.project_name')
-                ->label('Project'),
+                    ->label('Project'),
                 TextColumn::make('equipment.eq_name')
-                ->label('Equipment'),
+                    ->label('Equipment'),
                 TextColumn::make('protocol.protocol_name')
-                ->label('Protocol'),
+                    ->label('Protocol'),
                 TextColumn::make('dataSubcategory.dataCategory.data_category')
-                ->label('Data Type'),
+                    ->label('Data Type'),
                 TextColumn::make('dataSubcategory.data_subcategory')
-                ->label('Data Sub-Type'),
+                    ->label('Data Sub-Type'),
             ])
             ->filters([
                 //
@@ -94,8 +95,9 @@ class ExperimentResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                /** @var \App\Models\User */
                 $user = Auth::user();
-            
+
                 if (!$user->hasRole('admin')) {
                     $query->where('group_id', $user->group_id);
                 }

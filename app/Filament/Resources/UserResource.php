@@ -18,6 +18,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Filters\SelectFilter;
+use Spatie\Permission\Traits\HasRoles;
 
 class UserResource extends Resource
 {   
@@ -86,6 +87,7 @@ class UserResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                /** @var \App\Models\User */
                 $user = Auth::user();
             
                 if (!$user->hasRole('admin')) {

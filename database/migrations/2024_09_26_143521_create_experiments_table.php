@@ -22,17 +22,17 @@ return new class extends Migration
             $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
             $table->foreignId('protocol_id')->constrained('protocols')->onDelete('cascade');
             $table->foreignId('data_subcategory_id')->constrained('data_subcategories')->onDelete('cascade');
-            $table->string('samples');
-            $table->string('description');
-            $table->string('file_structure');
-            $table->string('supp_table');
+            $table->string('samples')->nullable();
+            $table->string('description')->nullable();
+            $table->string('file_structure')->nullable();
+            $table->string('supp_table')->nullable();
             $table->boolean('is_personal');
             $table->boolean('is_sensitive');
             $table->boolean('is_encrypted');
             $table->boolean('is_archived');
             $table->boolean('is_deposited');
             $table->boolean('storage_period');
-            $table->string('License');
+            $table->string('license');
             $table->timestamps();
         });
     }

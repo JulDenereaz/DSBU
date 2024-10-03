@@ -27,10 +27,10 @@ class ExperimentFactory extends Factory
         $equipment = Equipment::inRandomOrder()->first();
         $data_category_id = $equipment->data_category_id;
         $data_subcategory_id = Data_subcategory::where('data_category_id', $data_category_id)
-                                       ->inRandomOrder()
-                                       ->first()
-                                       ->id;
-        $user = User::inRandomOrder()->first();       
+            ->inRandomOrder()
+            ->first()
+            ->id;
+        $user = User::inRandomOrder()->first();
         return [
             'name' => fake()->word(),
             'group_id' => $user->group_id,
@@ -51,7 +51,7 @@ class ExperimentFactory extends Factory
             'is_archived' => fake()->boolean(),
             'is_deposited' => fake()->boolean(),
             'storage_period' => fake()->boolean(),
-            'License' => fake()->word(),
+            'license' => fake()->word(),
         ];
     }
 }

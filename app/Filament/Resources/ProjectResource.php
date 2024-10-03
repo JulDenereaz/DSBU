@@ -62,6 +62,7 @@ class ProjectResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                /** @var \App\Models\User */
                 $user = Auth::user();
             
                 if (!$user->hasRole('admin')) {

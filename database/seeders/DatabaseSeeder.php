@@ -88,9 +88,11 @@ class DatabaseSeeder extends Seeder
         User::factory(48)->create();
         
         $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
-        foreach ($categories as $category) {
+        $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
+        foreach ($categories as $index => $category) {
             Data_category::factory()->create([
-                'data_category' => $category
+                'data_category' => $category,
+                'icon' => $icons[$index], // Set the corresponding icon based on the index
             ]);
         }
         Data_subcategory::factory(15)->create();
