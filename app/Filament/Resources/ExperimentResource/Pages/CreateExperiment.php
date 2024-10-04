@@ -63,7 +63,31 @@ class CreateExperiment extends CreateRecord
                                         ->reactive(),
                                 ])
                                 ->columns(2),
-                            Wizard\Step::make('Equipment')
+                            Wizard\Step::make('Protocol')
+                                ->schema([
+                                    Select::make('protocol_id')
+                                        ->options(function (callable $get) {
+                                            $user = Auth::user();
+
+                                            return Protocol::where('group_id', $user->group_id)
+                                                ->pluck('protocol_name', 'id');
+                                        })
+                                        ->searchable()
+                                        ->placeholder('Select a protocol')
+                                        ->prefixIcon('tabler-microscope')
+                                        ->required()
+                                        ->reactive(),
+                                    RichEditor::make('samples')
+                                        ->disableAllToolbarButtons()
+                                        ->label('Samples (ID, Treatments)')
+                                        ->placeholder('Sample description, with any strain IDs, or specific treatments that was used to adapt protocol to this experiment.'),
+                                    RichEditor::make('description')
+                                        ->disableAllToolbarButtons()
+                                        ->label('Experiment description')
+                                        ->placeholder('Brief summary of the experiment, to understand the general aim.'),
+                                    TextInput::make('supp_table'),
+                                ]),
+                            Wizard\Step::make('Data acquisition')
                                 ->schema([
                                     ToggleButtons::make('data_category_id')
                                         ->options(Data_category::pluck('data_category', 'id')->toArray())
@@ -104,7 +128,7 @@ class CreateExperiment extends CreateRecord
                                         ->searchable()
                                         ->required()
                                         ->placeholder('Select a Data Subcategory')
-                                        ->disabled(fn(callable $get) => !$get('data_category_id'))
+                                        ->hidden(fn(callable $get) => !$get('data_category_id'))
                                         ->prefixIcon('carbon-category')
                                         ->reactive(),
                                     Select::make('equipment_id')
@@ -134,7 +158,7 @@ class CreateExperiment extends CreateRecord
                                         })
                                         ->searchable()
                                         ->placeholder('Select an equipment')
-                                        ->disabled(fn(callable $get) => !$get('data_category_id'))
+                                        ->hidden(fn(callable $get) => !$get('data_subcategory_id'))
                                         ->prefixIcon(function (callable $get) {
                                             // Get the data_category_id from the form
                                             $dataCategoryId = $get('data_category_id');
@@ -154,30 +178,11 @@ class CreateExperiment extends CreateRecord
                                         ->reactive(),
                                 ])
                                 ->columns(2),
-                            Wizard\Step::make('Protocol')
+                            Wizard\Step::make('Metadata')
                                 ->schema([
-                                    Select::make('protocol_id')
-                                        ->options(function (callable $get) {
-                                            $user = Auth::user();
-
-                                            return Protocol::where('group_id', $user->group_id)
-                                                ->pluck('protocol_name', 'id');
-                                        })
-                                        ->searchable()
-                                        ->placeholder('Select a protocol')
-                                        ->prefixIcon('tabler-microscope')
-                                        ->required()
-                                        ->reactive(),
-                                    RichEditor::make('samples')
-                                        ->disableAllToolbarButtons()
-                                        ->label('Samples (ID, Treatments)')
-                                        ->placeholder('Sample description, with any strain IDs, or specific treatments that was used to adapt protocol to this experiment.'),
-                                    RichEditor::make('description')
-                                        ->disableAllToolbarButtons()
-                                        ->label('Experiment description')
-                                        ->placeholder('Brief summary of the experiment, to understand the general aim.'),
-                                    TextInput::make('supp_table'),
-                                ]),
+                                    
+                                ])
+                                ->columns(2),
                             Wizard\Step::make('Optional Details')
                                 ->schema([
                                     Grid::make(1)

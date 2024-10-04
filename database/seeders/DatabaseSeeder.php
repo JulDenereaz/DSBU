@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'firstname' => 'Julien',
             'lastname' => 'Dénéréaz',
-            'email' => 'denereaz.julien@gmail.com',
+            'email' => 'admin@gmail.com',
             'username' => 'jdenerea',
             'password' => Hash::make('12345678'),
         ])->assignRole('admin');
@@ -80,10 +80,18 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'firstname' => 'Cécile',
             'lastname' => 'lebrand',
-            'email' => 'cecile.lebrand@unil.ch',
+            'email' => 'pi@unil.ch',
             'username' => 'clebrand',
             'password' => Hash::make('12345678'),
         ])->assignRole('pi');
+
+        User::factory()->create([
+            'firstname' => 'user',
+            'lastname' => 'test',
+            'email' => 'user@unil.ch',
+            'username' => 'testests',
+            'password' => Hash::make('12345678'),
+        ])->assignRole('user');
 
         $users = User::factory(48)->create();
         $users->each(function ($user) {
