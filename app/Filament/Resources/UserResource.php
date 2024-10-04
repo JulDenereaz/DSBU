@@ -108,10 +108,10 @@ class UserResource extends Resource
                     })
                     ->icon(static function ($state) {
                         return match ($state) {
-                            'admin' => 'danger',
-                            'pi' => 'primary',
-                            'manager' => 'success',
-                            'user' => 'secondary',
+                            'admin' => 'heroicon-s-user',
+                            'pi' => 'heroicon-s-user',
+                            'manager' => 'heroicon-o-user',
+                            'user' => 'heroicon-o-user',
                             default => 'gray',
                         };
                     })

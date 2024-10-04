@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'firstname' => 'Julien',
             'lastname' => 'Dénéréaz',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@unil.ch',
             'username' => 'jdenerea',
             'password' => Hash::make('12345678'),
         ])->assignRole('admin');
@@ -93,13 +93,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ])->assignRole('user');
 
-        $users = User::factory(48)->create();
-        $users->each(function ($user) {
-            $user->assignRole('user');
-        });
         $mod = User::factory(5)->create();
         $mod->each(function ($user) {
             $user->assignRole('manager');
+        });
+        $users = User::factory(48)->create();
+        $users->each(function ($user) {
+            $user->assignRole('user');
         });
         $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
         $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
