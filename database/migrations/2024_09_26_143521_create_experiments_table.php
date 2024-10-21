@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('is_encrypted');
             $table->boolean('is_archived');
             $table->boolean('is_deposited');
-            $table->boolean('storage_period');
+            $table->string('storage_period');
             $table->string('license');
             $table->timestamps();
         });

@@ -50,7 +50,7 @@ class ExperimentFactory extends Factory
             'is_encrypted' => fake()->boolean(),
             'is_archived' => fake()->boolean(),
             'is_deposited' => fake()->boolean(),
-            'storage_period' => fake()->boolean(),
+            'storage_period' => fake()->randomElement(['10 years']),
             'license' => fake()->word(),
         ];
     }
