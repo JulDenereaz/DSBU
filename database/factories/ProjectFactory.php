@@ -24,7 +24,7 @@ class ProjectFactory extends Factory
             'start_date' => fake()->date('Y-m-d'),
             'end_date' => fake()->date('Y-m-d'),
             'funding' => fake()->word(),
-            'group_id' => Group::inRandomOrder()->first()->id ?? Groups::factory()->create()->id,
+            'group_id' => Group::inRandomOrder()->first()->id ?? Group::factory()->create()->id,
         ];
     }
 }

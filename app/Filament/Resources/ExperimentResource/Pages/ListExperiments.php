@@ -5,7 +5,7 @@ namespace App\Filament\Resources\ExperimentResource\Pages;
 use App\Filament\Resources\ExperimentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Pages\ListRecords\Tab;
+use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -23,8 +23,9 @@ class ListExperiments extends ListRecords
     public function getTabs(): array
     {
         return [
-            'All' => Tab::make(),
-            Tab::make('Incomplete')
+            'All' => Tab::make()
+            ->modifyQueryUsing(fn (Builder $query) => $query->where('status', '!=', 'Deleted' )),
+            'Incomplete' => Tab::make()
             ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'Incomplete' ))
             ->icon('heroicon-s-pencil')
             ->iconPosition('before'),
