@@ -179,9 +179,7 @@ class CreateExperiment extends CreateRecord
                                 ])
                                 ->columns(2),
                             Wizard\Step::make('Metadata')
-                                ->schema([
-                                    
-                                ])
+                                ->schema([])
                                 ->columns(2),
                             Wizard\Step::make('Optional Details')
                                 ->schema([
@@ -215,8 +213,10 @@ class CreateExperiment extends CreateRecord
                             Wizard\Step::make('Summary')
                                 ->schema([])
                         ])
-                            ->extraAttributes(['class' => 'max-w-5xl'])
                             ->columnSpanFull()
+                            ->extraAttributes([
+                                'class' => 'max-w-5xl'
+                            ])
 
                     ])
             ]);

@@ -33,6 +33,10 @@ return new class extends Migration
             $table->boolean('is_deposited');
             $table->string('storage_period');
             $table->string('license');
+            $table->foreignId('library_source_id')->constrained('library_sources')->onDelete('cascade');
+            $table->foreignId('library_selection_id')->constrained('library_selections')->onDelete('cascade');
+            $table->foreignId('library_strategy_id')->constrained('library_strategies')->onDelete('cascade');
+            $table->foreignId('library_layout_id')->constrained('library_layouts')->onDelete('cascade');
             $table->timestamps();
         });
     }

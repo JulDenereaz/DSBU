@@ -11,6 +11,10 @@ use App\Models\Equipment;
 use App\Models\User;
 use App\Models\Protocol;
 use App\Models\Project;
+use App\Models\Library_source;
+use App\Models\Library_selection;
+use App\Models\Library_strategy;
+use App\Models\Library_layout;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -52,6 +56,10 @@ class ExperimentFactory extends Factory
             'is_deposited' => fake()->boolean(),
             'storage_period' => fake()->randomElement(['10 years']),
             'license' => fake()->word(),
+            'library_source_id' => Library_source::inRandomOrder()->first()->id,
+            'library_selection_id' => Library_selection::inRandomOrder()->first()->id,
+            'library_strategy_id' => Library_strategy::inRandomOrder()->first()->id,
+            'library_layout_id' => Library_layout::inRandomOrder()->first()->id,
         ];
     }
 }

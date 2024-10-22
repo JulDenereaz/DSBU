@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class Project extends Model
 {
     use HasFactory;
-    protected $table = 'projects';  // Ensure this table name matches your database
+    protected $table = 'projects';
 
     protected $fillable = [
         'project_name',

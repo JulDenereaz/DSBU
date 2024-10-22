@@ -109,10 +109,14 @@ class DatabaseSeeder extends Seeder
                 'icon' => $icons[$index], // Set the corresponding icon based on the index
             ]);
         }
+
+        $this->call(LibraryValuesSeeder::class);
+
         Data_subcategory::factory(15)->create();
         Equipment::factory(50)->create();
         Project::factory(30)->create();
         Protocol::factory(40)->create();
         Experiment::factory(20)->create();
+
     }
 }

@@ -39,6 +39,10 @@ class Experiment extends Model
         'is_deposited',
         'storage_period',
         'License',
+        'library_source_id',
+        'library_selection_id',
+        'library_strategy_id',
+        'library_layout_id',
     ];
 
 
@@ -67,5 +71,21 @@ class Experiment extends Model
         return $this->belongsTo(Data_subcategory::class);
     }
 
+    public function librarySource()
+    {
+        return $this->belongsTo(Library_source::class);
+    }
+    public function librarySelection()
+    {
+        return $this->belongsTo(Library_selection::class);
+    }
+    public function libraryLayout()
+    {
+        return $this->belongsTo(Library_layout::class);
+    }
+    public function libraryStrategy()
+    {
+        return $this->belongsTo(Library_strategy::class);
+    }
 
 }
