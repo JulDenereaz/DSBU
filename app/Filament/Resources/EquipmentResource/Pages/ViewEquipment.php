@@ -28,9 +28,9 @@ class ViewEquipment extends ViewRecord
                     ->label('Shortname'),
                     TextEntry::make('name')
                     ->label('Name'),
-                    TextEntry::make('platform')
-                    ->label('Platform'),
-                    TextEntry::make('platform_name')
+                    TextEntry::make('platform.shortname')
+                    ->label('Platform shortname'),
+                    TextEntry::make('platform.name')
                     ->label('Platform Name'),
                     TextEntry::make('location')
                     ->label('Location'),

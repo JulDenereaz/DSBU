@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Equipment;
 use App\Models\Data_category;
 use App\Models\User;
+use App\Models\Platform;
 use Illuminate\Support\Facades\DB;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Equipment>
@@ -23,8 +24,7 @@ class EquipmentFactory extends Factory
             'name' => fake()->word(),
             'shortname' => fake()->word(),
             'creator_id' => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
-            'platform' => fake()-> stateAbbr(),
-            'platform_name' => fake()-> state(),
+            'platform_id' => Platform::inRandomOrder()->first()->id ?? Platform::factory()->create()->id,
             'location' => fake()->city(),
             'software' => fake()->word(),
             'data_category_id' => Data_category::inRandomOrder()->first()->id ?? Data_category::factory()->create()->id,
@@ -37,7 +37,7 @@ class EquipmentFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Equipment $equipment) {
-            $plat = $equipment->platform;
+            $plat = $equipment->platform->shortname;
             $equipment->eq_id = $plat . str_pad($equipment->id, 3, '0', STR_PAD_LEFT);
             $equipment->save(); // Persist the updated eq_id
         });

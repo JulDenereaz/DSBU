@@ -22,8 +22,7 @@ class Equipment extends Model
         'shortname',
         'creator_id',
         'location',
-        'platform',
-        'platform_name',
+        'platform_id',
         'software',
         'data_category_id',
         'description',
@@ -38,5 +37,9 @@ class Equipment extends Model
     public function dataCategory()
     {
         return $this->belongsTo(Data_category::class);
+    }
+    public function platform()
+    {
+        return $this->belongsTo(Platform::class);
     }
 }

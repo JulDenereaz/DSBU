@@ -13,6 +13,7 @@ use App\Models\Group;
 use App\Models\Data_category;
 use App\Models\Data_subcategory;
 use App\Models\Experiment;
+use App\Models\Platform;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Artisan;
@@ -111,7 +112,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(LibraryValuesSeeder::class);
-
+        Platform::factory(10)->create();
         Data_subcategory::factory(15)->create();
         Equipment::factory(50)->create();
         Project::factory(30)->create();

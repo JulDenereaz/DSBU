@@ -26,17 +26,17 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('file_structure')->nullable();
             $table->string('supp_table')->nullable();
-            $table->boolean('is_personal');
-            $table->boolean('is_sensitive');
-            $table->boolean('is_encrypted');
-            $table->boolean('is_archived');
-            $table->boolean('is_deposited');
-            $table->string('storage_period');
-            $table->string('license');
-            $table->foreignId('library_source_id')->constrained('library_sources')->onDelete('cascade');
-            $table->foreignId('library_selection_id')->constrained('library_selections')->onDelete('cascade');
-            $table->foreignId('library_strategy_id')->constrained('library_strategies')->onDelete('cascade');
-            $table->foreignId('library_layout_id')->constrained('library_layouts')->onDelete('cascade');
+            $table->boolean('is_personal')->nullable();
+            $table->boolean('is_sensitive')->nullable();
+            $table->boolean('is_encrypted')->nullable();
+            $table->boolean('is_archived')->nullable();
+            $table->boolean('is_deposited')->nullable();
+            $table->string('storage_period')->nullable();
+            $table->string('license')->nullable();
+            $table->foreignId('library_source_id')->constrained('library_sources')->onDelete('cascade')->nullable();
+            $table->foreignId('library_selection_id')->constrained('library_selections')->onDelete('cascade')->nullable();
+            $table->foreignId('library_strategy_id')->constrained('library_strategies')->onDelete('cascade')->nullable();
+            $table->foreignId('library_layout_id')->constrained('library_layouts')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

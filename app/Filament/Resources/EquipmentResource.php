@@ -45,10 +45,10 @@ class EquipmentResource extends Resource
                 TextColumn::make('name')
                 ->searchable()
                 ->label('Name'),
-                TextColumn::make('platform')
+                TextColumn::make('platform.shortname')
                 ->searchable()
                 ->label('Platform'),
-                TextColumn::make('platform_name')
+                TextColumn::make('platform.name')
                 ->searchable()
                 ->label('Platform Name'),
                 TextColumn::make('location')

@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('shortname');
             $table->string('name');
             $table->foreignId('creator_id')->constrained('users')->onDelete('cascade');
-            $table->string('platform');
-            $table->string('platform_name');
+            $table->foreignId('platform_id')->constrained('platforms')->onDelete('cascade');
+            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->string('location');
             $table->string('software')->nullable();
-            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->timestamps();
         });

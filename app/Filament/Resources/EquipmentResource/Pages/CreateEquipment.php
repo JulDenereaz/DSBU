@@ -10,7 +10,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Group;
+use App\Models\Platform;
+use App\Models\Equipment;
 use App\Models\Data_category;
 
 class CreateEquipment extends CreateRecord
@@ -65,8 +66,15 @@ class CreateEquipment extends CreateRecord
         $group = $user->group;
 
         // Automatically populate fields
-        $data['platform'] = $group->department;
-        $data['platform_name'] =  $group->department_name;
+        $platform = Platform::firstOrCreate(
+            [
+                'shortname' => $group->department,
+                'name' => $group->department_name,
+            ],
+            // Optional: You can include any default values here if needed
+            []
+        );
+        $data['platform_id'] = $platform->id; // Set the platform_id
         $data['creator_id'] = $user->id;
         $data['eq_id'] = $this->generateEqId(); // Generate eq_id or handle it as needed
 
@@ -81,9 +89,10 @@ class CreateEquipment extends CreateRecord
 
         // Retrieve the group associated with the user
         $group = $user->group;
-        $platformAbbreviation = $group->department;
 
-        $lastEquipment = \App\Models\Equipment::where('platform', $platformAbbreviation)
+        $platform = Platform::where('shortname', $group->department)->first();
+
+        $lastEquipment = Equipment::where('platform_id',  $platform->id)
             ->orderBy('eq_id')
             ->first();
 
@@ -97,7 +106,7 @@ class CreateEquipment extends CreateRecord
         }
 
         // Format the new eq_id with leading zeros (e.g., DMF001, CIG001)
-        $newEqId = $platformAbbreviation . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $newEqId = $platform->shortname . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
         return $newEqId;
     }   
