@@ -70,6 +70,7 @@ class Register extends BaseRegister
     return Select::make('group_id')
         ->options($groups)
         ->label('Select Group')
-        ->required();
+        ->required()
+        ->searchable();
 }
 }

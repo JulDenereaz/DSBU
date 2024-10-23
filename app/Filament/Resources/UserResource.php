@@ -18,7 +18,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Filters\SelectFilter;
-use Spatie\Permission\Traits\HasRoles;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Columns\IconColumn;
+
+
 
 class UserResource extends Resource
 {
@@ -72,9 +75,9 @@ class UserResource extends Resource
                     ->sortable(),
                 TextColumn::make('email')
                     ->label('Email'),
-                TextColumn::make('group.group_name')
+                    TextColumn::make('group.group_name')
                     ->label('Research Group'),
-                TextColumn::make('roles.name')
+                    TextColumn::make('roles.name')
                     ->label('Role')  // This is the static label for the column header
                     ->sortable()
                     ->formatStateUsing(static function ($state): ?string {
@@ -82,7 +85,7 @@ class UserResource extends Resource
                         if (is_string($state)) {
                             $state = [$state];
                         }
-
+                        
                         if ($state && is_array($state)) {
                             return implode(', ', array_map(static function ($role) {
                                 return match ($role) {
@@ -93,7 +96,7 @@ class UserResource extends Resource
                                 };
                             }, $state));
                         }
-
+                        
                         return 'No Role';
                     })
                     ->badge()
@@ -114,7 +117,17 @@ class UserResource extends Resource
                             'user' => 'heroicon-o-user',
                             default => 'gray',
                         };
-                    })
+                    }),
+                    IconColumn::make('is_accepted')
+                        ->size(IconColumn\IconColumnSize::ExtraLarge)
+                        ->boolean()
+                        ->trueColor('info')
+                        ->falseColor('warning')
+                        ->visible(function () {
+                            /** @var \App\Models\User */
+                            $currentUser = Auth::user();
+                            return $currentUser->hasAnyRole(['admin', 'pi']);
+                        }),
             ])
             ->filters([])
             ->actions([

@@ -88,6 +88,8 @@ class Settings extends Page
 
     public static function shouldRegisterNavigation(): bool
     {
-        return Auth::user()->hasRole(['admin', 'pi']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user->hasRole(['admin', 'pi']);
     }
 }
