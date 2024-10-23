@@ -9,9 +9,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Validation\Rule;
-use App\Models\Group; 
+use App\Models\Group;
 
 class Register extends BaseRegister
 {
@@ -39,7 +38,7 @@ class Register extends BaseRegister
     {
         return TextInput::make('firstname')
             ->label('First Name')
-            ->required()  
+            ->required()
             ->maxLength(255);
     }
     protected function getLastNameFormComponent(): Component
@@ -59,18 +58,18 @@ class Register extends BaseRegister
                 'required',
                 'string',
                 'max:8',
-                Rule::unique('users', 'username'), 
+                Rule::unique('users', 'username'),
             ]);
     }
 
     protected function getGroupNameFormComponent(): Component
-{
-    $groups = Group::pluck('group_name', 'id')->toArray(); 
+    {
+        $groups = Group::pluck('group_name', 'id')->toArray();
 
-    return Select::make('group_id')
-        ->options($groups)
-        ->label('Select Group')
-        ->required()
-        ->searchable();
-}
+        return Select::make('group_id')
+            ->options($groups)
+            ->label('Select Group')
+            ->required()
+            ->searchable();
+    }
 }

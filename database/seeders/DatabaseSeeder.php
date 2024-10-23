@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $rolePi = Role::create(['name' => 'pi']);
         $roleManager = Role::create(['name' => 'manager']);
         $roleUser = Role::create(['name' => 'user']);
+        $roleInactive = Role::create(['name' => 'inactive']);
 
         Artisan::call('shield:generate', ['--all' => true]);
 
@@ -68,40 +69,61 @@ class DatabaseSeeder extends Seeder
             'delete_user',
         ]);
 
-        Group::factory(5)->create();
+        Group::factory(5)
+            ->create();
 
-        User::factory()->create([
-            'firstname' => 'Julien',
-            'lastname' => 'Dénéréaz',
-            'email' => 'admin@unil.ch',
-            'username' => 'jdenerea',
-            'password' => Hash::make('12345678'),
-        ])->assignRole('admin');
+        User::factory()
+            ->create([
+                'firstname' => 'Julien',
+                'lastname' => 'Dénéréaz',
+                'email' => 'admin@unil.ch',
+                'username' => 'jdenerea',
+                'is_accepted' => true,
+                'password' => Hash::make('12345678'),
+            ])
+            ->assignRole('admin');
 
-        User::factory()->create([
-            'firstname' => 'Cécile',
-            'lastname' => 'lebrand',
-            'email' => 'pi@unil.ch',
-            'username' => 'clebrand',
-            'password' => Hash::make('12345678'),
-        ])->assignRole('pi');
+        User::factory()
+            ->create([
+                'firstname' => 'Cécile',
+                'lastname' => 'lebrand',
+                'email' => 'pi@unil.ch',
+                'username' => 'clebrand',
+                'is_accepted' => true,
+                'password' => Hash::make('12345678'),
+            ])
+            ->assignRole('pi');
 
-        User::factory()->create([
-            'firstname' => 'user',
-            'lastname' => 'test',
-            'email' => 'user@unil.ch',
-            'username' => 'testests',
-            'password' => Hash::make('12345678'),
-        ])->assignRole('user');
+        User::factory()
+            ->create([
+                'firstname' => 'user',
+                'lastname' => 'test',
+                'email' => 'user@unil.ch',
+                'username' => 'testests',
+                'is_accepted' => true,
+                'password' => Hash::make('12345678'),
+            ])
+            ->assignRole('user');
 
-        $mod = User::factory(5)->create();
+        $mod = User::factory(5)->create([
+            'is_accepted' => true,
+        ]);
         $mod->each(function ($user) {
             $user->assignRole('manager');
         });
-        $users = User::factory(48)->create();
+        $users = User::factory(48)->create([
+            'is_accepted' => true,
+        ]);
         $users->each(function ($user) {
             $user->assignRole('user');
         });
+
+        $inactive = User::factory(10)->create([
+            'is_accepted' => false,
+        ]);
+
+
+
         $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
         $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
         foreach ($categories as $index => $category) {
@@ -118,6 +140,5 @@ class DatabaseSeeder extends Seeder
         Project::factory(30)->create();
         Protocol::factory(40)->create();
         Experiment::factory(20)->create();
-
     }
 }

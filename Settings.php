@@ -90,6 +90,6 @@ class Settings extends Page
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        return $user->hasRole(['admin', 'pi']);
+        return $user->hasAnyRole(['admin', 'pi']);
     }
 }

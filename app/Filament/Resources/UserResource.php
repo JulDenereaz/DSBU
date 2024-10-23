@@ -20,8 +20,9 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\IconColumn;
-
-
+use App\Filament\Actions\AcceptMember;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 
 class UserResource extends Resource
 {
@@ -58,6 +59,7 @@ class UserResource extends Resource
                 TextInput::make('username')
                     ->label('Username')
                     ->required(),
+
                 // Add other fields as needed
             ]);
     }
@@ -67,17 +69,24 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('firstname')
-                    ->label('First Name'),
-                TextColumn::make('lastname')
-                    ->label('Last Name'),
+                    ->label('Name')
+                    ->formatStateUsing(function ($state, User $user) {
+                        return $user->firstname . ' ' . $user->lastname;
+                    }),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->icon('heroicon-o-envelope')
+                    ->iconColor('grey')
+                    ->copyable()
+                    ->copyMessage('Email address copied')
+                    ->copyMessageDuration(1500),
                 TextColumn::make('username')
                     ->label('Username')
                     ->sortable(),
-                TextColumn::make('email')
-                    ->label('Email'),
-                    TextColumn::make('group.group_name')
+
+                TextColumn::make('group.group_name')
                     ->label('Research Group'),
-                    TextColumn::make('roles.name')
+                TextColumn::make('roles.name')
                     ->label('Role')  // This is the static label for the column header
                     ->sortable()
                     ->formatStateUsing(static function ($state): ?string {
@@ -85,18 +94,19 @@ class UserResource extends Resource
                         if (is_string($state)) {
                             $state = [$state];
                         }
-                        
+
                         if ($state && is_array($state)) {
                             return implode(', ', array_map(static function ($role) {
                                 return match ($role) {
                                     'admin' => 'Admin',
                                     'pi' => 'PI',
-                                    'manager' => 'Manager',
-                                    default => 'User',
+                                    'manager' => 'Lab Manager',
+                                    'user' => 'Lab Member',
+                                    default => 'Pending Approval',
                                 };
                             }, $state));
                         }
-                        
+
                         return 'No Role';
                     })
                     ->badge()
@@ -115,23 +125,14 @@ class UserResource extends Resource
                             'pi' => 'heroicon-s-user',
                             'manager' => 'heroicon-o-user',
                             'user' => 'heroicon-o-user',
-                            default => 'gray',
+                            default => 'heroicon-o-question-mark-circle',
                         };
                     }),
-                    IconColumn::make('is_accepted')
-                        ->size(IconColumn\IconColumnSize::ExtraLarge)
-                        ->boolean()
-                        ->trueColor('info')
-                        ->falseColor('warning')
-                        ->visible(function () {
-                            /** @var \App\Models\User */
-                            $currentUser = Auth::user();
-                            return $currentUser->hasAnyRole(['admin', 'pi']);
-                        }),
             ])
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                AcceptMember::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
