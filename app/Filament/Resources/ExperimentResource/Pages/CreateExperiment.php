@@ -152,7 +152,7 @@ class CreateExperiment extends CreateRecord
 
                                             return $query->get()->mapWithKeys(function ($equipment) {
                                                 return [
-                                                    $equipment->id => "{$equipment->name} ({$equipment->platform}, {$equipment->location})"
+                                                    $equipment->id => "{$equipment->name} ({$equipment->platform->shortname}, {$equipment->location})"
                                                 ];
                                             })->toArray();
                                         })
