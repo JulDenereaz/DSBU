@@ -34,7 +34,7 @@ class ViewEquipment extends ViewRecord
                     ->label('Platform Name'),
                     TextEntry::make('location')
                     ->label('Location'),
-                    TextEntry::make('datacategory.data_category')
+                    TextEntry::make('dataCategory.category')
                     ->label('Data Category'),
                     TextEntry::make('software')
                     ->label('Software'),

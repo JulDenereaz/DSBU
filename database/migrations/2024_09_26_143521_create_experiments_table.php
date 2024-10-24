@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
             $table->foreignId('protocol_id')->constrained('protocols')->onDelete('cascade');
-            $table->foreignId('data_subcategory_id')->constrained('data_subcategories')->onDelete('cascade');
+            $table->foreignId('data_method_id')->constrained('data_methods')->onDelete('cascade');
             $table->string('samples')->nullable();
             $table->string('description')->nullable();
             $table->string('file_structure')->nullable();
@@ -33,10 +33,6 @@ return new class extends Migration
             $table->boolean('is_deposited')->nullable();
             $table->string('storage_period')->nullable();
             $table->string('license')->nullable();
-            $table->foreignId('library_source_id')->constrained('library_sources')->onDelete('cascade')->nullable();
-            $table->foreignId('library_selection_id')->constrained('library_selections')->onDelete('cascade')->nullable();
-            $table->foreignId('library_strategy_id')->constrained('library_strategies')->onDelete('cascade')->nullable();
-            $table->foreignId('library_layout_id')->constrained('library_layouts')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

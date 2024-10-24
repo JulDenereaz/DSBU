@@ -22,8 +22,8 @@ use App\Models\Equipment;
 use App\Models\Group;
 use App\Models\Project;
 use App\Models\Protocol;
-use App\Models\Data_category;
-use App\Models\Data_subcategory;
+use App\Models\DataCategory;
+use App\Models\DataMethod;
 use Filament\Forms\Components\Wizard;
 
 class CreateExperiment extends CreateRecord
@@ -90,9 +90,9 @@ class CreateExperiment extends CreateRecord
                             Wizard\Step::make('Data acquisition')
                                 ->schema([
                                     ToggleButtons::make('data_category_id')
-                                        ->options(Data_category::pluck('data_category', 'id')->toArray())
+                                        ->options(DataCategory::pluck('category', 'id')->toArray())
                                         ->icons(
-                                            Data_category::pluck('icon', 'id')->toArray()
+                                            DataCategory::pluck('icon', 'id')->toArray()
                                         )
                                         ->label('Data Category')
                                         ->required()
@@ -100,34 +100,34 @@ class CreateExperiment extends CreateRecord
                                         ->reactive()
                                         ->afterStateUpdated(function (callable $set) {
                                             $set('equipment_id', null);
-                                            $set('data_subcategory_id', null);
+                                            $set('data_method_id', null);
                                         })
                                         ->columnSpan(2),
-                                    Select::make('data_subcategory_id')
+                                    Select::make('data_method_id')
                                         ->label(function (callable $get) {
                                             $dataCategoryId = $get('data_category_id');
 
                                             // If a data category is selected, get its name
                                             if ($dataCategoryId) {
-                                                $dataCategory = Data_category::find($dataCategoryId);
-                                                return $dataCategory ? 'Chose a ' . $dataCategory->data_category . ' data subcategory' : 'Data Subcategory';
+                                                $dataCategory = DataCategory::find($dataCategoryId);
+                                                return $dataCategory ? 'Chose a ' . $dataCategory->category . ' method' : 'Method';
                                             }
 
-                                            return 'Data Subcategory';
+                                            return 'Method';
                                         })
                                         ->options(function (callable $get) {
                                             // Only show subcategories that belong to the selected data_category_id
                                             if ($get('data_category_id')) {
-                                                return Data_subcategory::where('data_category_id', $get('data_category_id'))
-                                                    ->pluck('data_subcategory', 'id')
+                                                return DataMethod::where('data_category_id', $get('data_category_id'))
+                                                    ->pluck('method', 'id')
                                                     ->toArray();
                                             }
 
-                                            return Data_subcategory::pluck('data_subcategory', 'id')->toArray();  // Default fallback
+                                            return DataMethod::pluck('data_method', 'id')->toArray();  // Default fallback
                                         })
                                         ->searchable()
                                         ->required()
-                                        ->placeholder('Select a Data Subcategory')
+                                        ->placeholder('Select a method')
                                         ->hidden(fn(callable $get) => !$get('data_category_id'))
                                         ->prefixIcon('carbon-category')
                                         ->reactive(),
@@ -137,8 +137,8 @@ class CreateExperiment extends CreateRecord
 
                                             // If a data category is selected, get its name
                                             if ($dataCategoryId) {
-                                                $dataCategory = Data_category::find($dataCategoryId);
-                                                return $dataCategory ? 'Chose a ' . $dataCategory->data_category . ' equipment' : 'Equipment';
+                                                $dataCategory = DataCategory::find($dataCategoryId);
+                                                return $dataCategory ? 'Chose a ' . $dataCategory->category . ' equipment' : 'Equipment';
                                             }
 
                                             return 'Equipment';
@@ -158,14 +158,14 @@ class CreateExperiment extends CreateRecord
                                         })
                                         ->searchable()
                                         ->placeholder('Select an equipment')
-                                        ->hidden(fn(callable $get) => !$get('data_subcategory_id'))
+                                        ->hidden(fn(callable $get) => !$get('data_method_id'))
                                         ->prefixIcon(function (callable $get) {
                                             // Get the data_category_id from the form
                                             $dataCategoryId = $get('data_category_id');
 
                                             // If a data category is selected, find the corresponding icon
                                             if ($dataCategoryId) {
-                                                $dataCategory = Data_category::find($dataCategoryId);
+                                                $dataCategory = DataCategory::find($dataCategoryId);
 
                                                 // Return the corresponding icon if it exists
                                                 return $dataCategory ? $dataCategory->icon : 'mdi-molecule';

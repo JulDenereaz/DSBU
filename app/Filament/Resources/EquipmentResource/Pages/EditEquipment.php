@@ -12,7 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
-use App\Models\Data_category;
+use App\Models\DataCategory;
 
 
 class EditEquipment extends EditRecord
@@ -38,7 +38,7 @@ class EditEquipment extends EditRecord
                 ->placeholder('LasX')
                 ->prefixIcon('tabler-app-window'),
                 Select::make('data_category_id')
-                ->options(Data_category::pluck('data_category', 'id')->unique()->toArray())
+                ->options(DataCategory::pluck('category', 'id')->unique()->toArray())
                 ->label('Data Category')
                 ->placeholder('Imaging')
                 ->searchable()

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Equipment;
-use App\Models\Data_category;
+use App\Models\DataCategory;
 use App\Models\User;
 use App\Models\Platform;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +27,7 @@ class EquipmentFactory extends Factory
             'platform_id' => Platform::inRandomOrder()->first()->id ?? Platform::factory()->create()->id,
             'location' => fake()->city(),
             'software' => fake()->word(),
-            'data_category_id' => Data_category::inRandomOrder()->first()->id ?? Data_category::factory()->create()->id,
+            'data_category_id' => DataCategory::inRandomOrder()->first()->id ?? DataCategory::factory()->create()->id,
             'description' => fake()->optional()->sentence(), 
             'updated_at' =>now(),            
             'created_at' =>now(),

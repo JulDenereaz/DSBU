@@ -6,7 +6,7 @@ use App\Filament\Resources\EquipmentResource\Pages;
 use App\Filament\Resources\EquipmentResource\RelationManagers;
 use App\Models\Equipment;
 use App\Models\Group;
-use App\Models\Data_category;
+use App\Models\DataType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -54,9 +54,9 @@ class EquipmentResource extends Resource
                 TextColumn::make('location')
                 ->searchable()
                 ->label('Location'),
-                TextColumn::make('dataCategory.data_category')
+                TextColumn::make('dataCategory.category')
                 ->searchable()
-                ->label('Data Category'),
+                ->label('Data Type'),
                 TextColumn::make('software')
                 ->searchable()
                 ->label('Software'),
@@ -80,7 +80,7 @@ class EquipmentResource extends Resource
                 Tables\Grouping\Group::make('location')
                     ->label('Location')
                     ->collapsible(),
-                Tables\Grouping\Group::make('dataCategory.data_category')
+                Tables\Grouping\Group::make('dataCategory.category')
                     ->label('Data Category')
                     ->collapsible(),
             ]);;

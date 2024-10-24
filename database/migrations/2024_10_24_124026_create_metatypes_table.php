@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_subcategories', function (Blueprint $table) {
+        Schema::create('metatypes', function (Blueprint $table) {
             $table->id();
-            $table->string('data_subcategory');
-            $table->string('description')->nullable();
-            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_subcategories');
+        Schema::dropIfExists('metatypes');
     }
 };

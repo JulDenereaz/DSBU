@@ -12,7 +12,7 @@ use Filament\Forms\Form;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Platform;
 use App\Models\Equipment;
-use App\Models\Data_category;
+use App\Models\DataCategory;
 
 class CreateEquipment extends CreateRecord
 {
@@ -38,7 +38,7 @@ class CreateEquipment extends CreateRecord
                 ->placeholder('LasX')
                 ->prefixIcon('tabler-app-window'),
                 Select::make('data_category_id')
-                ->options(Data_category::pluck('data_category', 'id')->unique()->toArray())
+                ->options(DataCategory::pluck('category', 'id')->unique()->toArray())
                 ->label('Data Category')
                 ->placeholder('Imaging')
                 ->searchable()

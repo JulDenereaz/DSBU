@@ -24,7 +24,7 @@ class Experiment extends Model
         'protocol_id', 
         'equipment_id', 
         'project_id', 
-        'data_subcategory_id', 
+        'data_method_id', 
         'status',
         'collection_date',
         'samples',
@@ -39,10 +39,6 @@ class Experiment extends Model
         'is_deposited',
         'storage_period',
         'License',
-        'library_source_id',
-        'library_selection_id',
-        'library_strategy_id',
-        'library_layout_id',
     ];
 
 
@@ -66,26 +62,11 @@ class Experiment extends Model
     {
         return $this->belongsTo(Project::class);
     }
-    public function dataSubcategory()
+    public function dataMethod()
     {
-        return $this->belongsTo(Data_subcategory::class);
+        return $this->belongsTo(DataMethod::class);
     }
 
-    public function librarySource()
-    {
-        return $this->belongsTo(Library_source::class);
-    }
-    public function librarySelection()
-    {
-        return $this->belongsTo(Library_selection::class);
-    }
-    public function libraryLayout()
-    {
-        return $this->belongsTo(Library_layout::class);
-    }
-    public function libraryStrategy()
-    {
-        return $this->belongsTo(Library_strategy::class);
-    }
+
 
 }

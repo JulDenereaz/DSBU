@@ -10,8 +10,8 @@ use App\Models\Equipment;
 use App\Models\Project;
 use App\Models\Protocol;
 use App\Models\Group;
-use App\Models\Data_category;
-use App\Models\Data_subcategory;
+use App\Models\DataCategory;
+use App\Models\DataMethod;
 use App\Models\Experiment;
 use App\Models\Platform;
 use Spatie\Permission\Models\Role;
@@ -127,15 +127,15 @@ class DatabaseSeeder extends Seeder
         $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
         $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
         foreach ($categories as $index => $category) {
-            Data_category::factory()->create([
-                'data_category' => $category,
+            DataCategory::factory()->create([
+                'category' => $category,
                 'icon' => $icons[$index], // Set the corresponding icon based on the index
             ]);
         }
 
         $this->call(LibraryValuesSeeder::class);
         Platform::factory(10)->create();
-        Data_subcategory::factory(15)->create();
+        DataMethod::factory(15)->create();
         Equipment::factory(50)->create();
         Project::factory(30)->create();
         Protocol::factory(40)->create();

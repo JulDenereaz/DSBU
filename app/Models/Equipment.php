@@ -36,7 +36,7 @@ class Equipment extends Model
     }
     public function dataCategory()
     {
-        return $this->belongsTo(Data_category::class);
+        return $this->belongsTo(DataCategory::class);
     }
     public function platform()
     {

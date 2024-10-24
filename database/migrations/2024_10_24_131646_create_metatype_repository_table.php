@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('library_sources', function (Blueprint $table) {
-            $table->id();
-            $table->string('value');
-            $table->timestamps();
+        Schema::create('metatype_repository', function (Blueprint $table) {
+            $table->foreignId('metatype_id')->constrained('metatypes')->onDelete('cascade')->primary();
+            $table->foreignId('repository_id')->constrained('repositories')->onDelete('cascade')->primary();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('library_sources');
+        Schema::dropIfExists('metatype_repository');
     }
 };

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Data_subcategory extends Model
+class DataMethod extends Model
 {
     use HasFactory;
-    protected $table = 'data_subcategories';
+    protected $table = 'data_methods';
 
     public function dataCategory()
     {
-        return $this->belongsTo(Data_category::class);
+        return $this->belongsTo(DataCategory::class);
     }
     
 }

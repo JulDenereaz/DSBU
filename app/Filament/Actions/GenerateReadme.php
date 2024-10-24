@@ -24,6 +24,23 @@ class GenerateReadme extends Action
                     $record->description,
                     $record->created_at->format('Y-m-d H:i'),
                     $record->status
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 );
 
                 $record->update([

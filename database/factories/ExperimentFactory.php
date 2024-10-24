@@ -5,16 +5,12 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Experiment;
-use App\Models\Data_subcategory;
+use App\Models\DataMethod;
 use App\Models\Group;
 use App\Models\Equipment;
 use App\Models\User;
 use App\Models\Protocol;
 use App\Models\Project;
-use App\Models\Library_source;
-use App\Models\Library_selection;
-use App\Models\Library_strategy;
-use App\Models\Library_layout;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -30,7 +26,7 @@ class ExperimentFactory extends Factory
     {
         $equipment = Equipment::inRandomOrder()->first();
         $data_category_id = $equipment->data_category_id;
-        $data_subcategory_id = Data_subcategory::where('data_category_id', $data_category_id)
+        $data_method_id = DataMethod::where('data_category_id', $data_category_id)
             ->inRandomOrder()
             ->first()
             ->id;
@@ -42,7 +38,7 @@ class ExperimentFactory extends Factory
             'protocol_id' => Protocol::inRandomOrder()->first()->id,
             'equipment_id' => $equipment->id,
             'project_id' => Project::inRandomOrder()->first()->id,
-            'data_subcategory_id' => $data_subcategory_id,
+            'data_method_id' => $data_method_id,
             'status' => fake()->randomElement(['INCOMPLETE', 'READY', 'CREATED', 'ARCHIVED', 'DELETED']),
             'collection_date' => fake()->date(),
             'samples' => fake()->sentence(),
@@ -56,10 +52,6 @@ class ExperimentFactory extends Factory
             'is_deposited' => fake()->boolean(),
             'storage_period' => fake()->randomElement(['10 years']),
             'license' => fake()->word(),
-            'library_source_id' => Library_source::inRandomOrder()->first()->id,
-            'library_selection_id' => Library_selection::inRandomOrder()->first()->id,
-            'library_strategy_id' => Library_strategy::inRandomOrder()->first()->id,
-            'library_layout_id' => Library_layout::inRandomOrder()->first()->id,
         ];
     }
 }

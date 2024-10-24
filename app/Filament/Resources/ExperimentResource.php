@@ -75,10 +75,10 @@ class ExperimentResource extends Resource
                     ->date('Y-m-d'),
                 TextColumn::make('project.project_name')
                     ->label('Project'),
-                TextColumn::make('dataSubcategory.dataCategory.data_category')
-                    ->label('Data Type'),
-                TextColumn::make('dataSubcategory.data_subcategory')
-                    ->label('Data Sub-Type'),
+                TextColumn::make('dataMethod.dataCategory.category')
+                    ->label('Data Category'),
+                TextColumn::make('dataMethod.method')
+                    ->label('Data Method'),
                 TextColumn::make('equipment.name')
                     ->label('Equipment'),
                 TextColumn::make('protocol.protocol_name')

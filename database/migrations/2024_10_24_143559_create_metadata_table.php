@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('library_selections', function (Blueprint $table) {
+        Schema::create('metadata', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
+            $table->foreignId('metatype_id')->constrained('metatypes')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('library_selections');
+        Schema::dropIfExists('metadata');
     }
 };

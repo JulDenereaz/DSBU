@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('library_layouts', function (Blueprint $table) {
+        Schema::create('data_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
+            $table->string('method');
+            $table->string('description')->nullable();
+            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('library_layouts');
+        Schema::dropIfExists('data_methods');
     }
 };
