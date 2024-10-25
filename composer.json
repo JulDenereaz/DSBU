@@ -9,6 +9,8 @@
         "bezhansalleh/filament-shield": "^3.2",
         "blade-ui-kit/blade-zondicons": "^1.5",
         "codeat3/blade-carbon-icons": "^2.29",
+        "codeat3/blade-grommet-icons": "^1.9",
+        "codeat3/blade-solar-icons": "^1.1",
         "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",

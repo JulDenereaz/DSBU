@@ -18,7 +18,7 @@ class DataCategoryFactory extends Factory
     {
         return [
             'category' => fake()->numberBetween(1,5),
-            'description' => fake()->text(),
+            'example' => fake()->text(),
         ];
     }
 }

@@ -40,12 +40,12 @@ class DatabaseSeeder extends Seeder
             'view_experiment',
             'create_experiment',
             'view_equipment',
-            'view_project',
             'view_protocol',
             'view_user',
+            'view_project',
+            'view_any_project',
             'view_any_experiment',
             'view_any_equipment',
-            'view_any_project',
             'view_any_protocol',
             'view_any_user',
         ]);
@@ -56,13 +56,13 @@ class DatabaseSeeder extends Seeder
             'create_equipment',
             'view_group',
             'update_experiment',
-            'update_project',
             'update_protocol',
             'update_user',
         ]);
         $rolePi->syncPermissions($roleManager->permissions->pluck('name')->toArray());
         $rolePi->givePermissionTo([
             'update_group',
+            'update_project',
             'delete_experiment',
             'delete_project',
             'delete_protocol',
@@ -124,11 +124,28 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Spectroscopy'];
-        $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
+        $categories = [
+            'Imaging Data', 
+            'Sequencing Data', 
+            'Genomics and Omics Data', 
+            'Structural Biology Data', 
+            'Genetic and Epigenetic Data',
+            'Flow Cytometry and Single-Cell Data', 
+        ];
+        $examples = [
+            'Microscopy (light, fluorescence, electron), Medical imaging (MRI, CT), Live-cell imaging.',
+            'DNA sequencing (Whole Genome, RNA-seq, ChIP-seq)',
+            'Transcriptomics (RNA-seq), Proteomics (mass spectrometry), Metabolomics, Epigenomics.',
+            'X-ray crystallography, NMR spectroscopy, Cryo-EM.',
+            'Genotyping, SNP analysis, DNA methylation patterns, ChIP-seq.',
+            'Flow cytometry, FACS, Single-cell RNA sequencing (scRNA-seq).',
+
+        ];
+        $icons = ['tabler-microscope','tabler-dna-2', 'solar-bacteria-bold', 'mdi-molecule', 'grommet-network', 'tabler-filter-minus'];
         foreach ($categories as $index => $category) {
             DataCategory::factory()->create([
                 'category' => $category,
+                'example' => $examples[$index],
                 'icon' => $icons[$index], // Set the corresponding icon based on the index
             ]);
         }
