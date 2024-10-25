@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'project_name' => fake()->word(),
+            'name' => fake()->word(),
             'start_date' => fake()->date('Y-m-d'),
             'end_date' => fake()->date('Y-m-d'),
             'funding' => fake()->word(),

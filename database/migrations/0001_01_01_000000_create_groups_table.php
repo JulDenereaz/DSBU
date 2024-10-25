@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('group_name');
             $table->string('fullname');
+            $table->string('email');
             $table->string('address');
+            $table->string('faculty_abb');
             $table->string('faculty');
+            $table->string('department_abb');
             $table->string('department');
-            $table->string('department_name');
             $table->string('orcid');
             $table->json('settings')->nullable();
             $table->timestamps();

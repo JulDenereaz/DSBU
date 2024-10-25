@@ -12,7 +12,7 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $fillable = [
-        'project_name',
+        'name',
         'funding',
         'start_date',
         'end_date',

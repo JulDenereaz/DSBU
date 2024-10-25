@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('metatype_repository', function (Blueprint $table) {
-            $table->foreignId('metatype_id')->constrained('metatypes')->onDelete('cascade');
+        Schema::create('data_category_repository', function (Blueprint $table) {
+            $table->foreignId('data_category_id')->constrained('data_categories')->onDelete('cascade');
             $table->foreignId('repository_id')->constrained('repositories')->onDelete('cascade');
-            $table->primary(['metatype_id', 'repository_id']);
+            $table->primary(['data_category_id', 'repository_id']);
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('metatype_repository');
+        Schema::dropIfExists('data_category_repository');
     }
 };

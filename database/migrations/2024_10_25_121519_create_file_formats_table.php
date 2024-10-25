@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('file_formats', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('funding')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
+            $table->string('value');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('file_formats');
     }
 };

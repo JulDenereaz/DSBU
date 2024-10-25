@@ -20,7 +20,7 @@ class CreateProject extends CreateRecord
     {
         return $form
             ->schema([
-                TextInput::make('project_name')
+                TextInput::make('name')
                 ->label('Project Name')
                 ->required(),
                 DatePicker::make('start_date')

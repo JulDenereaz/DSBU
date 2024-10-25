@@ -73,7 +73,7 @@ class ExperimentResource extends Resource
                 TextColumn::make('collection_date')
                     ->label('Data Collection Date')
                     ->date('Y-m-d'),
-                TextColumn::make('project.project_name')
+                TextColumn::make('project.name')
                     ->label('Project'),
                 TextColumn::make('dataMethod.dataCategory.category')
                     ->label('Data Category'),

@@ -37,7 +37,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_name')
+                TextColumn::make('name')
                 ->label('Project Name'),
                 TextColumn::make('funding')
                 ->label('Funding Agencies'),

@@ -54,7 +54,7 @@ class CreateExperiment extends CreateRecord
                                             $user = Auth::user();
 
                                             return Project::where('group_id', $user->group_id)
-                                                ->pluck('project_name', 'id');
+                                                ->pluck('name', 'id');
                                         })
                                         ->searchable()
                                         ->placeholder('Select a project')

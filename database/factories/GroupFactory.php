@@ -19,9 +19,11 @@ class GroupFactory extends Factory
         return [
             'group_name' => fake()->word(),
             'fullname' => fake()->name(),
+            'email' => fake()->email(),
             'address' => fake()->address(),
-            'department' => fake()->stateAbbr(),
-            'department_name' => fake()->state(),
+            'department_abb' => fake()->stateAbbr(),
+            'department' => fake()->state(),
+            'faculty_abb' => fake()->stateAbbr(),
             'faculty' => fake()->word(),
             'orcid' => fake()->uuid(),
         ];
