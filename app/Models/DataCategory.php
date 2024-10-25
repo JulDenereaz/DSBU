@@ -9,4 +9,9 @@ class DataCategory extends Model
 {
     use HasFactory;
     protected $table = 'data_categories';
+
+    public function repositories() {
+        return $this->belongsToMany(Repository::class);
+    }
+
 }

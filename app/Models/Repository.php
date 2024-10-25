@@ -17,8 +17,11 @@ class Repository extends Model
     protected $fillable = [
         'name',
     ];
-    public function repositories()
+    public function metatypes()
     {
         return $this->belongsToMany(Metatype::class);
+    }
+    public function dataCategories() {
+        return $this->belongsToMany(DataCategory::class);
     }
 }

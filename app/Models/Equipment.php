@@ -42,4 +42,7 @@ class Equipment extends Model
     {
         return $this->belongsTo(Platform::class);
     }
+    public function fileFormats() {
+        return $this->belongsToMany(FileFormat::class);
+    }
 }

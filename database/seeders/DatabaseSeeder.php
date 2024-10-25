@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Mass Spectrometry'];
+        $categories = ['Imaging', 'Flow Cytometry', 'Sequencing', 'Spectroscopy'];
         $icons = ['tabler-microscope', 'tabler-filter-minus', 'tabler-dna-2', 'mdi-molecule'];
         foreach ($categories as $index => $category) {
             DataCategory::factory()->create([
