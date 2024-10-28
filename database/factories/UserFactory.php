@@ -25,13 +25,13 @@ class UserFactory extends Factory
     {
         return [
             // 'name' => fake()->Name(),
-            'firstname' => fake()->firstName(),
-            'lastname' => fake()->lastName(),
+            'firstname' => $firstname = fake()->firstName(),
+            'lastname' => $lastname = fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'username' => Str::random(8), // Unique 8-character username
+            'username' => Str::lower(substr($firstname, 0, 1) . substr($lastname, 0, 7)),
             'group_id' => Group::inRandomOrder()->first()->id ?? Group::factory()->create()->id,
             'is_accepted' => fake()->boolean(20)
         ];

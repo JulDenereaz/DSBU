@@ -51,10 +51,11 @@ class CreateExperiment extends CreateRecord
                                     Select::make('project_id')
                                         ->label('Project')
                                         ->options(function (callable $get) {
+                                            /** @var \App\Models\User */
                                             $user = Auth::user();
-
-                                            return Project::where('group_id', $user->group_id)
-                                                ->pluck('name', 'id');
+                                    
+                                            // Retrieve the projects linked to the authenticated user
+                                            return $user->projects()->pluck('name', 'id');
                                         })
                                         ->searchable()
                                         ->placeholder('Select a project')

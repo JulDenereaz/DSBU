@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('username', 8)->unique(); // New username field (8 characters)
+            $table->string('username', 8); // New username field (8 characters)
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->boolean('is_accepted')->default(false);
             $table->rememberToken();

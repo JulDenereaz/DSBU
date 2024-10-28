@@ -29,4 +29,9 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+        public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
 }

@@ -57,6 +57,8 @@ class ProjectResource extends Resource
                         $endDate = Carbon::parse($project->end_date)->format('Y-m');
                         return "{$startDate} to {$endDate}";
                     }),
+                TextColumn::make('creator.firstname')
+                ->label('Project Creator'),
                 TextColumn::make('users.firstname')
                     ->label('Assigned Users')
                     ->badge()
