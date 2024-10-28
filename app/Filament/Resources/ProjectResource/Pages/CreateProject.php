@@ -21,22 +21,22 @@ class CreateProject extends CreateRecord
         return $form
             ->schema([
                 TextInput::make('name')
-                ->label('Project Name')
-                ->required(),
+                    ->label('Project Name')
+                    ->required(),
                 DatePicker::make('start_date')
                     ->label('Start Date')
                     ->displayFormat('Y-m')
                     ->placeholder('yyyy-mm')
                     ->native(false)
                     ->required(),
-                    DatePicker::make('end_date')
-                    ->label('End Date')                    
+                DatePicker::make('end_date')
+                    ->label('End Date')
                     ->displayFormat('Y-m')
                     ->placeholder('yyyy-mm')
                     ->native(false)
                     ->required(),
                 TextInput::make('funding')
-                ->label('Funding Agencies')
+                    ->label('Funding Agencies')
             ])
             ->columns(4);
     }

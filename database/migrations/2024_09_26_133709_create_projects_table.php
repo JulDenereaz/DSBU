@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('funding')->nullable();
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->timestamps();
         });

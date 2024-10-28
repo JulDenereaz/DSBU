@@ -79,5 +79,10 @@ class User extends Authenticatable implements FilamentUser, HasName
         });
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
 
 }

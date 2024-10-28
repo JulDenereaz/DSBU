@@ -6,7 +6,9 @@ use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Project;
 use App\Models\Group;
+use App\Models\User;
 use Filament\Forms;
+use Carbon\Carbon;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
 
 class ProjectResource extends Resource
 {
@@ -29,7 +32,13 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('users')
+                    ->label('Assign Members')
+                    // ->options(User::all()->pluck('name', 'id'))
+                    ->multiple()
+                    ->relationship('users', 'username') // The relationship and the display column from the users table
+                    ->searchable(), // Allow search inside the select dropdown
+
             ]);
     }
 
@@ -38,17 +47,19 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->label('Project Name'),
+                    ->label('Project Name'),
                 TextColumn::make('funding')
-                ->label('Funding Agencies'),
-                TextColumn::make('start_date')
-                ->label('Start Date (YYYY-mm)')
-                ->date('Y-m'), 
-                TextColumn::make('end_date')
-                ->label('End Date (YYYY-mm)')
-                ->date('Y-m'), 
-                TextColumn::make('group.group_name')
-                ->label('Research Group'),
+                    ->label('Funding Agencies'),
+                    TextColumn::make('start_date')
+                    ->label('Project Dates (YYYY-MM)')
+                    ->formatStateUsing(function (Project $project) {
+                        $startDate = Carbon::parse($project->start_date)->format('Y-m');
+                        $endDate = Carbon::parse($project->end_date)->format('Y-m');
+                        return "{$startDate} to {$endDate}";
+                    }),
+                TextColumn::make('users.firstname')
+                    ->label('Assigned Users')
+                    ->badge()
             ])
             ->filters([
                 //
@@ -64,9 +75,12 @@ class ProjectResource extends Resource
             ->modifyQueryUsing(function (Builder $query) {
                 /** @var \App\Models\User */
                 $user = Auth::user();
-            
-                if (!$user->hasRole('admin')) {
-                    $query->where('group_id', $user->group_id);
+
+                //if not admin, display only projects that is user is member of
+                if (!$user->hasRole(['admin'])) {
+                    $query->whereHas('users', function (Builder $query) use ($user) {
+                        $query->where('users.id', $user->id);
+                    });
                 }
             });
     }

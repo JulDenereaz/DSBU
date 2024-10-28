@@ -121,8 +121,12 @@ class DatabaseSeeder extends Seeder
         $inactive = User::factory(10)->create([
             'is_accepted' => false,
         ]);
-
-
+        $pis = User::factory(9)->create([
+            'is_accepted' => true,
+        ]);
+        $pis->each(function ($user) {
+            $user->assignRole('pi');
+        });
 
         $categories = [
             'Imaging Data', 
@@ -152,10 +156,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(LibraryValuesSeeder::class);
         Platform::factory(10)->create();
-        DataMethod::factory(15)->create();
+        DataMethod::factory(30)->create();
         Equipment::factory(50)->create();
-        Project::factory(30)->create();
+        Project::factory(30)->create(); 
         Protocol::factory(40)->create();
         Experiment::factory(20)->create();
+
     }
 }
